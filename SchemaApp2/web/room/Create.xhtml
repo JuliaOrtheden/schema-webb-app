@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateRoomTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateRoomLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{roomController.selected.name}" title="#{bundle.CreateRoomTitle_name}" required="true" requiredMessage="#{bundle.CreateRoomRequiredMessage_name}"/>
+                    <h:outputLabel value="#{bundle.CreateRoomLabel_type}" for="type" />
+                    <h:inputText id="type" value="#{roomController.selected.type}" title="#{bundle.CreateRoomTitle_type}" />
+                    <h:outputLabel value="#{bundle.CreateRoomLabel_maxpeople}" for="maxpeople" />
+                    <h:inputText id="maxpeople" value="#{roomController.selected.maxpeople}" title="#{bundle.CreateRoomTitle_maxpeople}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{roomController.create}" value="#{bundle.CreateRoomSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{roomController.prepareList}" value="#{bundle.CreateRoomShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateRoomIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
