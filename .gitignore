@@ -78,7 +78,7 @@ $RECYCLE.BIN/
 *.mdb
 *.pdb
 *.sqlite3
-
+**/database
 # End of https://www.gitignore.io/api/database
 
 # End of https://www.gitignore.io/api/macos,windows,netbeans,java-web

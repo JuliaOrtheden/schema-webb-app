@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Book something fun"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <div>
+            <table class="fixed_header">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+                </thead>
+            </table>
+            <table class ="fixed_header">
+                <tbody>
+                    <tr>
+                        <th>00-01</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>01-02</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>02-03</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>03-04</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>04-05</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>05-06</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>06-07</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>07-08</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>08-09</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>09-10</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>10-11</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>11-12</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>12-13</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>13-14</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>14-15</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>15-16</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>16-17</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>17-18</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>18-19</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>19-20</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>20-21</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>21-22</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>22-23</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                    <tr>
+                        <th>23-24</th>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                        <td><button type="button" onclick="book()">Boka!</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </ui:define>
+    </ui:composition>
+    <script>
+        function book(){
+            
+        }
+    </script>
+</html>

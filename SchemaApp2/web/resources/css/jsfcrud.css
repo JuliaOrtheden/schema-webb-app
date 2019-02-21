@@ -80,3 +80,26 @@ tr.jsfcrud_even_row {
     left: 50%;
     top: 50%;
 }
+thead, tbody { display: block; }
+
+.fixed_header{
+    width:100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.fixed_header tbody{
+  overflow: auto;
+  height: 100px;
+}
+
+.fixed_header thead {
+  background: black;
+  color:#fff;
+}
+
+.fixed_header th, .fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 200px;
+}
