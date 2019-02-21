@@ -78,6 +78,10 @@ public class UsersController implements Serializable {
         selectedItemIndex = -1;
         return "Create";
     }
+    
+    public String prepareWelcome(){
+        return "WelcomePage";
+    }
 
     public String create() {
         try {
@@ -94,7 +98,7 @@ public class UsersController implements Serializable {
         try {
             getFacade().login(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
-            return prepareView();
+            return prepareWelcome();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("PersistenceErrorOccured"));
                    
