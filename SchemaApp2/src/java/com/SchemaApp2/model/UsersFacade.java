@@ -5,9 +5,12 @@
  */
 package com.SchemaApp2.model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  *
@@ -26,6 +29,21 @@ public class UsersFacade extends AbstractFacade<Users> {
 
     public UsersFacade() {
         super(Users.class);
+    }
+    
+    public Users login(Users user){
+        //em.getTransaction().begin();
+        TypedQuery<Users> query = em.createNamedQuery("Users.findByCidAndPassword",Users.class);
+        query.setParameter("cid", user.getCid());
+        query.setParameter("password", user.getPassword());
+        List<Users> resultList = query.getResultList();    
+        Users u = resultList.get(0);
+        /*if(user.getCid().equals(u.getCid()) && (user.getPassword().equals(u.getPassword()))){
+            return u;
+        }else{
+            return null;
+        }*/
+        return u;
     }
     
 }

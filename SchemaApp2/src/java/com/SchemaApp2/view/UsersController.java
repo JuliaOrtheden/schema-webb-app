@@ -89,6 +89,18 @@ public class UsersController implements Serializable {
             return null;
         }
     }
+    
+     public String login() {
+        try {
+            getFacade().login(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
+            return prepareView();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("PersistenceErrorOccured"));
+                   
+            return null;
+        }
+    }
 
     public String prepareEdit() {
         current = (Users) getItems().getRowData();
