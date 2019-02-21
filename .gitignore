@@ -70,4 +70,15 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+
+### Database ###
+*.accdb
+*.db
+*.dbf
+*.mdb
+*.pdb
+*.sqlite3
+
+# End of https://www.gitignore.io/api/database
+
 # End of https://www.gitignore.io/api/macos,windows,netbeans,java-web
