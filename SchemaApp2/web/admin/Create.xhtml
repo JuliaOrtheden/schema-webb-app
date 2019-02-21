@@ -25,7 +25,8 @@
                     <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
                     <h:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
-                    <h:inputHidden id="usertype" value="student"/>
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_usertype}" for="usertype" />
+                    <h:inputText id="usertype" value="#{usersController.selected.usertype}" title="#{bundle.CreateUsersTitle_usertype}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_division}" for="division" />
                     <h:inputText id="division" value="#{usersController.selected.division}" title="#{bundle.CreateUsersTitle_division}" />
                 </h:panelGrid>

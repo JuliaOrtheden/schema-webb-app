@@ -57,6 +57,7 @@ public class Users implements Serializable {
     private Collection<Timeslot> timeslotCollection;
 
     public Users() {
+        this.usertype = "student";
     }
 
     public Users(String cid) {
