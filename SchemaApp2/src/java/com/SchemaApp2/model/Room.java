@@ -107,7 +107,7 @@ public class Room implements Serializable {
 
     @Override
     public String toString() {
-        return "com.SchemaApp2.com.Room[ name=" + name + " ]";
+        return  name;
     }
     
 }
