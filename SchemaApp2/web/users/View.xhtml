@@ -34,14 +34,8 @@
                 <h:commandLink action="#{usersController.destroyAndView}" value="#{bundle.ViewUsersDestroyLink}"/>
                 <br />
                 <br />
-                <h:link outcome="Edit" value="#{bundle.ViewUsersEditLink}"/>
+                <h:link outcome="Profile" value="#{bundle.ViewUsersEditLink}"/>
                 <br />
-                <h:commandLink action="#{usersController.prepareCreate}" value="#{bundle.ViewUsersCreateLink}" />
-                <br />
-                <h:commandLink action="#{usersController.prepareList}" value="#{bundle.ViewUsersShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewUsersIndexLink}"/>
 
             </h:form>
         </ui:define>

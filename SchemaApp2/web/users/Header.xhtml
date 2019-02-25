@@ -10,13 +10,10 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Welcome!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <h:outputStylesheet name="css/welcome.css"/>
     </h:head>
     <h:body>
-        <ui:include src="./Header.xhtml" />
-        <h:button outcome="/timeslot/Schema" value="Boka" styleClass="b" />
-        <h:button outcome="/users/MyBookings" value="Mina bokningar" styleClass="b" />
+        <h:link outcome="/users/Profile" value="Profile" styleClass="h"/>
+        <h:link outcome="/users/Login" value="Log out" styleClass="h"/>
     </h:body>
 </html>
