@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/loggedOutTemplate.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateUsersTitle}"></h:outputText>
         </ui:define>
@@ -16,27 +16,24 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateUsersLabel_cid}" for="cid" />
-                    <h:inputText id="cid" value="#{usersController.selected.cid}" title="#{bundle.CreateUsersTitle_cid}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_cid}"/>
+                    <h:inputText id="cid" title="#{bundle.CreateUsersTitle_cid}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_cid}"/>
                     <h:outputLabel value="#{bundle.CreateUsersLabel_firstname}" for="firstname" />
-                    <h:inputText id="firstname" value="#{usersController.selected.firstname}" title="#{bundle.CreateUsersTitle_firstname}" />
+                    <h:inputText id="firstname" title="#{bundle.CreateUsersTitle_firstname}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_lastname}" for="lastname" />
-                    <h:inputText id="lastname" value="#{usersController.selected.lastname}" title="#{bundle.CreateUsersTitle_lastname}" />
+                    <h:inputText id="lastname" title="#{bundle.CreateUsersTitle_lastname}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
+                    <h:inputText id="email" title="#{bundle.CreateUsersTitle_email}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_email}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                    <h:inputSecret id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
+                    <h:inputSecret id="password" title="#{bundle.CreateUsersTitle_password}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_password}"/>
                     <h:outputLabel value="#{bundle.CreateUsersLabel_division}" for="division" />
-                    <h:inputText id="division" value="#{usersController.selected.division}" title="#{bundle.CreateUsersTitle_division}" />
+                    <h:inputText id="division" title="#{bundle.CreateUsersTitle_division}" />
                     <h:inputHidden id="usertype" value="student"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />
                 <br />
                 <br />
-                <h:commandLink action="#{usersController.prepareList}" value="#{bundle.CreateUsersShowAllLink}" immediate="true"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.CreateUsersIndexLink}"/>
+             
             </h:form>
         </ui:define>
     </ui:composition>
