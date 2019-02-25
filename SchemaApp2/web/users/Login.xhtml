@@ -18,7 +18,8 @@
                     <h:outputLabel value="#{bundle.CreateUsersLabel_cid}" for="cid" />
                     <h:inputText id="cid" value="#{usersController.selected.cid}" title="#{bundle.CreateUsersTitle_cid}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_cid}"/>
                     <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
+                    <h:inputSecret id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
+                    <h:inputHidden id="usertype" value="student"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usersController.login}" value="#{bundle.CreateUsersLoginLink}" />
