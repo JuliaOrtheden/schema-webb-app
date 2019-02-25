@@ -101,6 +101,7 @@ public class UsersController implements Serializable {
         try {
             Users user = getFacade().login(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
+            current = user;
             return prepareWelcome(user);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("PersistenceErrorOccured"));
@@ -119,7 +120,7 @@ public class UsersController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
-            return "View";
+            return "Profile";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
