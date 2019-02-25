@@ -8,6 +8,9 @@ body {
     background-color: #dfecf1;
     font-size: medium;
 }
+#header {
+  position: fixed;
+}
 
 a {
     color: #e33b06;

@@ -17,9 +17,28 @@ and open the template in the editor.
     
 }
 
+.m:hover {
+  background:#a2b3a1;
+  color:white
+}
+
+.h {
+ text-decoration:none;
+ padding:5px 10px;
+ background:white;
+ color:#a2b3a1;
+ float:right;
+    
+}
+
+.h:hover {
+  color:#3a4f54;
+}
+
 .b {
   background-color: #4CAF50; /* Green */
   border: none;
+  margin: 20px;
   color: white;
   padding: 15px 32px;
   text-align: center;
@@ -30,7 +49,7 @@ and open the template in the editor.
 }
 
 .b:hover {
-  background-color: #4CAF50; /* Green */
+  background-color: #a2b3a1; /* Green */
   color: white;
 }
 
