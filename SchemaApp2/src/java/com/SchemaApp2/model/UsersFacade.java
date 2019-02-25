@@ -38,11 +38,6 @@ public class UsersFacade extends AbstractFacade<Users> {
         query.setParameter("password", user.getPassword());
         List<Users> resultList = query.getResultList();    
         Users u = resultList.get(0);
-        /*if(user.getCid().equals(u.getCid()) && (user.getPassword().equals(u.getPassword()))){
-            return u;
-        }else{
-            return null;
-        }*/
         return u;
     }
     

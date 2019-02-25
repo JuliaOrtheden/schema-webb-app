@@ -79,7 +79,10 @@ public class UsersController implements Serializable {
         return "Create";
     }
     
-    public String prepareWelcome(){
+    public String prepareWelcome(Users user){
+        if(user.getUsertype().equals("admin")){
+            return "AdminWelcomePage";
+        }
         return "WelcomePage";
     }
 
@@ -96,9 +99,9 @@ public class UsersController implements Serializable {
     
      public String login() {
         try {
-            getFacade().login(current);
+            Users user = getFacade().login(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
-            return prepareWelcome();
+            return prepareWelcome(user);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("PersistenceErrorOccured"));
                    
