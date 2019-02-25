@@ -90,7 +90,7 @@ thead, tbody { display: block; }
 
 .fixed_header tbody{
   overflow: auto;
-  height: 100px;
+  height: auto;
 }
 
 .fixed_header thead {
