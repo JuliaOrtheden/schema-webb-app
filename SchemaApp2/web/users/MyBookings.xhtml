@@ -17,8 +17,6 @@
             <h:outputText value="Inga bokningar"> </h:outputText>
             
             <table class = "fixed_header">
-                
-            
             <tbody>
                 <tr>
                     <td>
@@ -28,8 +26,7 @@
                             </c:forEach>
                         </h:dataTable>
                     </td>
-                </tr>
-                   
+                </tr>  
             </tbody>
                 </table>
                      
@@ -39,6 +36,31 @@
     <h:body>
             <h:button outcome="/timeslot/Schema" value="Boka" styleClass="b" />
     </h:body>
+           
+            <div id="work" >
+            <button id="myBtn" onclick="popup()" >Open Modal</button>
+            
+
+                <div id="myModal" class="modal">
+
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Some text in the Modal..</p>
+                    <script type="text/javascript">
+                    function popup()
+                        {
+                            var btn = document.getElementById("myBtn");
+                            var modal = document.getElementById('myModal');
+                            modal.style.display="block";
+                        }
+                    
+                </script>
+                </div>
+                    
+                 
+
+                </div>
+                </div>   
             
     </ui:define>
         
