@@ -15,6 +15,16 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+            <h:form>
+            <select value="room" colMd="2" required="false" labelColMd="2">
+                    <option value="room">Grupprum 1</option>
+                    <option value="room">Grupprum 2</option>
+                    <option value="room">Grupprum 3</option>
+                    <option value="room">Motionshall</option>
+                    <option value="room">Musikrum</option>
+            </select>
+            <h:commandLink action="#{timeslotController.getSelected}" value="#{bundle.SearchByRoom}"/>
+            </h:form>
             <div>
               
                 <table class="fixed_header">
