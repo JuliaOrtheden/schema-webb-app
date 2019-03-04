@@ -50,6 +50,16 @@ public class TimeslotController implements Serializable {
    /* public List<Timeslot> filter(){
         
     }*/
+    
+    public void bookTimeslot(){
+        System.out.println("I controller");
+        Date date = new Date();
+        Timeslot timeslot = new Timeslot(date, date, "Grupprum1");
+        timeslot.setUsers(new Users("a"));
+        System.out.println("Current: " + timeslot);
+        getFacade().bookTimeslot(timeslot);
+        items.setWrappedData(timeslot);
+    }
 
     public Timeslot getSelected() {
         if (current == null) {

@@ -38,4 +38,22 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
         super(Timeslot.class);
     }
     
+     public List<Timeslot> getTimeslotsFilteredByRoom(){
+        //em.getTransaction().begin();
+        TypedQuery<Timeslot> query = em.createNamedQuery("Timeslot.findByRoom",Timeslot.class);
+        List<Timeslot> resultList = query.getResultList();    
+        return resultList;
+    }
+    
+    public void bookTimeslot(Timeslot timeslot){
+        System.out.println("Into query");
+        Query query = em.createNativeQuery("INSERT INTO Timeslot(date,time,room,description,users) VALUES(:date,:time,:room,:description,:users)",Timeslot.class);
+        query.setParameter("date", timeslot.getTimeslotPK().getDate());
+        query.setParameter("time", timeslot.getTimeslotPK().getTime());
+        query.setParameter("room", timeslot.getTimeslotPK().getRoom());
+        query.setParameter("description", timeslot.getDescription());
+        query.setParameter("users", timeslot.getUsers());
+    }
+     
+    
 }
