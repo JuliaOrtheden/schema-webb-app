@@ -129,7 +129,7 @@ public class TimeslotController implements Serializable {
             timeslotpk.setTime(date);
             current2.setTimeslotPK(timeslotpk);
             System.out.println("ojojojojoj");
-            getFacade().create(current2);
+            getFacade().create(current);
             System.out.println("Försöker 3");
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotCreated"));
             System.out.println("Försöker 4");
