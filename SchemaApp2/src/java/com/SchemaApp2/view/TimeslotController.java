@@ -1,5 +1,6 @@
 package com.SchemaApp2.view;
 
+import com.SchemaApp2.model.Room;
 import com.SchemaApp2.model.Timeslot;
 import com.SchemaApp2.view.util.JsfUtil;
 import com.SchemaApp2.view.util.PaginationHelper;
@@ -7,6 +8,7 @@ import com.SchemaApp2.model.TimeslotFacade;
 import com.SchemaApp2.model.Users;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -37,6 +39,16 @@ public class TimeslotController implements Serializable {
    /* public List<Timeslot> filter(){
         
     }*/
+    
+    public void bookTimeslot(){
+        System.out.println("I controller");
+        Date date = new Date();
+        Timeslot timeslot = new Timeslot(date, date, "Grupprum1");
+        timeslot.setUsers(new Users("a"));
+        System.out.println("Current: " + timeslot);
+        getFacade().bookTimeslot(timeslot);
+        items.setWrappedData(timeslot);
+    }
 
     public Timeslot getSelected() {
         if (current == null) {

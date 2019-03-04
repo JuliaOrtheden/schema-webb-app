@@ -25,6 +25,7 @@
             </select>
             <h:commandLink action="#{timeslotController.getSelected}" value="#{bundle.SearchByRoom}"/>
             </h:form>
+            <h:form>
             <div>
               
                 <table class="fixed_header">
@@ -101,6 +102,12 @@
                                 }
                             var parent = document.getElementById("schema");
                             parent.appendChild(createTable());
+<<<<<<< HEAD
+=======
+    
+                            
+>>>>>>> a5518b56406cce0f2750add67ba92f4a96c1c97f
+>>>>>>> fa60dbff4b50fd6f888d2651a5a6de1274c305dd
 
                             
                             
@@ -111,7 +118,17 @@
                         </tr>
                     </tbody>
                 </table>
+              
                 <script type="text/javascript">
+                    function book(){
+                        console.log("hej");
+                        //date = new Date();
+                        //time = "08:00:00";
+                        //room = new Room("Grupprum1");
+                        //timeslot = new Timeslot(date, time, room);
+                        //timeslot.setUser(new Users("a","a","a","a","a","student","a"));
+                        TimeslotController.bookTimeslot();
+                    }
                     var ids = ["date1", "date2", "date3","date4","date5","date6","date7"];                    
                     function date() {
                         n = new Date();
@@ -126,11 +143,9 @@
                         for (id in ids)
                         {
                             var dInt = Number(d);
-                            console.log(d);
-                            console.log(dInt);
                             var idInt = Number(id);
                             var day =  dInt + idInt;
-                            console.log(dInt);
+                            
                             document.getElementById(ids[id]).innerHTML = day + "/" + m + "/" + y;
                         }
                     }
@@ -138,6 +153,7 @@
 
                 </script>
             </div>
+           </h:form>
         </ui:define>
     </ui:composition>
 
