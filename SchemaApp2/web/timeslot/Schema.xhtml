@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
 
     <ui:composition template="/template.xhtml">
@@ -41,109 +42,58 @@
                         </tr>
                     </thead>
                 </table>
-                <table class ="fixed_header">
+                <table id="schema" class ="table">
                     <tbody>
                         <tr>
-                            <th>00-01</th>
-                            <td><button type="button" onclick="date()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><h:commandLink action="#{timeslotController.bookTimeslot}" value="Klicka här"/></td>
-                        </tr>
-                        <tr>
-                            <th>01-02</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>02-03</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>03-04</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>04-05</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>05-06</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>06-07</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>07-08</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>08-09</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
-                        <tr>
-                            <th>09-10</th>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                            <td><button type="button" onclick="book()">Boka!</button></td>
-                        </tr>
+                            <script type="text/javascript">
+                                //<![CDATA[ 
+                                
+                                
+                                function createTable(){
+                                var tbl = document.createElement("table");
+                                var k = 0;
+                                var tcol = document.createElement("td");
+                                var tbody = document.createElement("tbody");
+                                n = new Date();
+                                y = n.getFullYear();
+                                m = n.getMonth() + 1;
+                                d = n.getDate();
+                                weekDay = n.getDay();
+                                
+                                for(var i = 0; i<24;i++){
+                                    var trow = document.createElement("tr");
+                                        for(var j = 1; j<8;j++){
+            //text = document.createTextNode("Button");
+                                        tcol = document.createElement("td");
+                                        var btn = document.createElement('input');
+                                        btn.type = "button";
+                                        btn.className = "btn";
+                                        btn.value = i + "-" + (i+1);
+                                        btn.id = (i*7 + j).toString() +" "+ ((n.getDate()-weekDay)+j) +" "+  (n.getMonth()+1) +" "+  n.getFullYear();                                        
+                                        btn.onclick = function changeText(){
+                                                        document.getElementById(this.id).value = "DONE";
+                                                        document.getElementById(this.id).disabled = true;
+                                                        alert(this.id);
+                                                        };
+                                        tcol.appendChild(btn);
+                                        trow.appendChild(tcol);
+                                        k++;
+                                    }
+                                tbody.appendChild(trow);
+                                }
+                            tbl.appendChild(tbody);
+                            return tbl;
+                                }
+                            var parent = document.getElementById("schema");
+                            parent.appendChild(createTable());
+    
+                            
+>>>>>>> a5518b56406cce0f2750add67ba92f4a96c1c97f
 
+                                //]]>
+                                                      
+                            </script>
+                        </tr>
                     </tbody>
                 </table>
               
