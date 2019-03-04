@@ -24,6 +24,7 @@
             </select>
             <h:commandLink action="#{timeslotController.getSelected}" value="#{bundle.SearchByRoom}"/>
             </h:form>
+            <h:form>
             <div>
               
                 <table class="fixed_header">
@@ -45,12 +46,12 @@
                         <tr>
                             <th>00-01</th>
                             <td><button type="button" onclick="date()">Boka!</button></td>
-                            <td><button type="button" onclick="change()">Boka!</button></td>
-                            <td><button type="button" onclick="">Boka!</button></td>
                             <td><button type="button" onclick="book()">Boka!</button></td>
                             <td><button type="button" onclick="book()">Boka!</button></td>
                             <td><button type="button" onclick="book()">Boka!</button></td>
                             <td><button type="button" onclick="book()">Boka!</button></td>
+                            <td><button type="button" onclick="book()">Boka!</button></td>
+                            <td><h:commandLink action="#{timeslotController.bookTimeslot}" value="Klicka här"/></td>
                         </tr>
                         <tr>
                             <th>01-02</th>
@@ -145,7 +146,17 @@
 
                     </tbody>
                 </table>
+              
                 <script type="text/javascript">
+                    function book(){
+                        console.log("hej");
+                        //date = new Date();
+                        //time = "08:00:00";
+                        //room = new Room("Grupprum1");
+                        //timeslot = new Timeslot(date, time, room);
+                        //timeslot.setUser(new Users("a","a","a","a","a","student","a"));
+                        TimeslotController.bookTimeslot();
+                    }
                     var ids = ["date1", "date2", "date3","date4","date5","date6","date7"];                    
                     function date() {
                         n = new Date();
@@ -160,11 +171,9 @@
                         for (id in ids)
                         {
                             var dInt = Number(d);
-                            console.log(d);
-                            console.log(dInt);
                             var idInt = Number(id);
                             var day =  dInt + idInt;
-                            console.log(dInt);
+                            
                             document.getElementById(ids[id]).innerHTML = day + "/" + m + "/" + y;
                         }
                     }
@@ -172,6 +181,7 @@
 
                 </script>
             </div>
+           </h:form>
         </ui:define>
     </ui:composition>
 
