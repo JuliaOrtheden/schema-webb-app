@@ -26,6 +26,13 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    public List<Timeslot> filterTimeslotByUser(Users user){
+        TypedQuery<Timeslot> query = em.createNamedQuery("Timeslot.filterTimeslotByUser", Timeslot.class);
+        query.setParameter("usercid", user.getCid());
+        List<Timeslot> queryResult = query.getResultList();
+        return queryResult;
+    }
 
     public TimeslotFacade() {
         super(Timeslot.class);

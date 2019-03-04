@@ -17,6 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 @Named("usersController")
 @SessionScoped
@@ -102,6 +103,9 @@ public class UsersController implements Serializable {
             Users user = getFacade().login(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
             current = user;
+            FacesContext context2 = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
             return prepareWelcome(user);
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("WrongUser"));

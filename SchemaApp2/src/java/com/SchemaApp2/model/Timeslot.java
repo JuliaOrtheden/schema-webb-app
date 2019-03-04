@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Timeslot.findByDate", query = "SELECT t FROM Timeslot t WHERE t.timeslotPK.date = :date")
     , @NamedQuery(name = "Timeslot.findByTime", query = "SELECT t FROM Timeslot t WHERE t.timeslotPK.time = :time")
     , @NamedQuery(name = "Timeslot.findByRoom", query = "SELECT t FROM Timeslot t WHERE t.timeslotPK.room = :room")
-    , @NamedQuery(name = "Timeslot.findByDescription", query = "SELECT t FROM Timeslot t WHERE t.description = :description")})
+    , @NamedQuery(name = "Timeslot.findByDescription", query = "SELECT t FROM Timeslot t WHERE t.description = :description")
+    , @NamedQuery(name = "Timeslot.filterTimeslotByUser", query = "SELECT t FROM Timeslot t WHERE t.users.cid = :usercid")})
 public class Timeslot implements Serializable {
 
     private static final long serialVersionUID = 1L;
