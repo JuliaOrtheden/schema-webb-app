@@ -5,9 +5,12 @@
  */
 package com.SchemaApp2.model;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -22,6 +25,13 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    public List<Timeslot> filterTimeslotByUser(Users user){
+        TypedQuery<Timeslot> query = em.createNamedQuery("Timeslot.filterTimeslotByUser", Timeslot.class);
+        query.setParameter("usercid", user.getCid());
+        List<Timeslot> queryResult = query.getResultList();
+        return queryResult;
     }
 
     public TimeslotFacade() {

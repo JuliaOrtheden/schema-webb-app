@@ -14,9 +14,13 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <h:outputStylesheet name="css/welcome.css"/>
     </h:head>
+    
     <h:body>
         <ui:include src="./Header.xhtml" />
         <h:button outcome="/timeslot/Schema" value="Boka" styleClass="b" />
-        <h:button outcome="/users/MyBookings" value="Mina bokningar" styleClass="b" />
+        <h:button outcome="/timeslot/MyBookings" value="Mina bokningar" styleClass="b" />
     </h:body>
+    <h:panelGroup rendered="#{not empty user}">
+    <p>Welcome #{user}, you have been logged in!</p>
+    </h:panelGroup>
 </html>

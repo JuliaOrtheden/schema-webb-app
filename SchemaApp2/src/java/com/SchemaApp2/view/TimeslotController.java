@@ -1,14 +1,20 @@
 package com.SchemaApp2.view;
 
+import com.SchemaApp2.model.Room;
 import com.SchemaApp2.model.Timeslot;
 import com.SchemaApp2.view.util.JsfUtil;
 import com.SchemaApp2.view.util.PaginationHelper;
 import com.SchemaApp2.model.TimeslotFacade;
+import com.SchemaApp2.model.TimeslotPK;
 import com.SchemaApp2.model.Users;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -19,6 +25,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.Convert;
 
 @Named("timeslotController")
 @SessionScoped
@@ -34,6 +41,12 @@ public class TimeslotController implements Serializable {
     public TimeslotController() {
     }
     
+    public void getTimeSlotByUser(Users user){
+        
+        List<Timeslot> list = ejbFacade.filterTimeslotByUser(user);
+        items.setWrappedData(list);
+        
+    }
    /* public List<Timeslot> filter(){
         
     }*/
@@ -89,9 +102,27 @@ public class TimeslotController implements Serializable {
 
     public String create() {
         try {
+            System.out.println("Försöker 1");
             current.getTimeslotPK().setRoom(current.getRoom1().getName());
-            getFacade().create(current);
+            System.out.println("Försöker 2");
+            Timeslot current2 = new Timeslot();
+            int num = 2;
+            short numShort = (short) num;
+            Room room = new Room("banan","Banan", numShort);
+            Users user = new Users("a", "a", "a", "a", "a", "a","a");
+            current2.setUsers(user);
+            current2.setDescription("hjkl");
+            TimeslotPK timeslotpk = new TimeslotPK();
+            Date date = new Date();
+            timeslotpk.setDate(date);
+            timeslotpk.setRoom("Musikrummet");
+            timeslotpk.setTime(date);
+            current2.setTimeslotPK(timeslotpk);
+            System.out.println("ojojojojoj");
+            getFacade().create(current2);
+            System.out.println("Försöker 3");
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotCreated"));
+            System.out.println("Försöker 4");
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -168,6 +199,12 @@ public class TimeslotController implements Serializable {
             items = getPagination().createPageDataModel();
         }
         return items;
+    }
+    
+    public DataModel getItemsByUser(Users user){
+        DataModel allItems = getItems();
+        getTimeSlotByUser(user);
+        return allItems;
     }
 
     private void recreateModel() {

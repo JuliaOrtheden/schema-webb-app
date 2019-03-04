@@ -17,14 +17,14 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateTimeslotLabel_timeslotPK_date}" for="timeslotPK_date" />
                     <h:inputText id="timeslotPK_date" value="#{timeslotController.selected.timeslotPK.date}" title="#{bundle.CreateTimeslotTitle_timeslotPK_date}" required="true" requiredMessage="#{bundle.CreateTimeslotRequiredMessage_timeslotPK_date}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateTimeslotLabel_timeslotPK_time}" for="timeslotPK_time" />
                     <h:inputText id="timeslotPK_time" value="#{timeslotController.selected.timeslotPK.time}" title="#{bundle.CreateTimeslotTitle_timeslotPK_time}" required="true" requiredMessage="#{bundle.CreateTimeslotRequiredMessage_timeslotPK_time}">
                         <f:convertDateTime pattern="HH:mm:ss" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateTimeslotLabel_description}" for="description" />
-                    <h:inputText id="description" value="#{timeslotController.selected.description}" title="#{bundle.CreateTimeslotTitle_description}" required="true" requiredMessage="#{bundle.CreateTimeslotRequiredMessage_description}"/>
+                    <h:inputText id="description" value="#{timeslotController.selected.description}" title="#{bundle.CreateTimeslotTitle_description}" required="false"/>
                     <h:outputLabel value="#{bundle.CreateTimeslotLabel_room1}" for="room1" />
                     <h:selectOneMenu id="room1" value="#{timeslotController.selected.room1}" title="#{bundle.CreateTimeslotTitle_room1}" required="true" requiredMessage="#{bundle.CreateTimeslotRequiredMessage_room1}">
                         <f:selectItems value="#{roomController.itemsAvailableSelectOne}"/>

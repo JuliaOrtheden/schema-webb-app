@@ -51,6 +51,12 @@ public class Room implements Serializable {
     public Room(String name) {
         this.name = name;
     }
+    
+    public Room(String name, String type, Short maxpeople){
+        this.name = name;
+        this.type = type;
+        this.maxpeople = maxpeople;
+    }
 
     public String getName() {
         return name;

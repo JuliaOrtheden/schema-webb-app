@@ -65,6 +65,17 @@ public class Users implements Serializable {
         this.cid = cid;
     }
 
+    public Users(String cid, String firstname, String lastname, String email, String password, String usertype, String division){
+        this.cid = cid;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.usertype = usertype;
+        this.division = division;
+        
+    }
+    
     public String getCid() {
         return cid;
     }
@@ -152,7 +163,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "com.SchemaApp2.com.Users[ cid=" + cid + " ]";
+        return firstname + " " + lastname;
     }
     
 }
