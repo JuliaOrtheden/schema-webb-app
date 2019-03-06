@@ -10,14 +10,17 @@ import com.SchemaApp2.model.Users;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -28,15 +31,17 @@ import javax.faces.model.SelectItem;
 import javax.persistence.Convert;
 
 @Named("timeslotController")
-@SessionScoped
+@ViewScoped
+@ManagedBean
 public class TimeslotController implements Serializable {
 
-    private Timeslot current;
+    private Timeslot selected;
     private DataModel items = null;
     @EJB
     private com.SchemaApp2.model.TimeslotFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private List<Timeslot> timeslots = new ArrayList<Timeslot>();
 
     public TimeslotController() {
     }
@@ -58,22 +63,27 @@ public class TimeslotController implements Serializable {
         timeslot.setUsers(new Users("a"));
         System.out.println("Current: " + timeslot);
         getFacade().bookTimeslot(timeslot);
-        items.setWrappedData(timeslot);
+        //items.setWrappedData(timeslot);
     }
-
+    
     public Timeslot getSelected() {
-        if (current == null) {
-            current = new Timeslot();
-            current.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
+        if (selected == null) {
+            selected = new Timeslot();
+            selected.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
             selectedItemIndex = -1;
+            System.out.println(selected.toString());
         }
-        return current;
+        return selected;
+    }
+    
+    public void setSelected(Timeslot timeslot){
+        selected = timeslot;
     }
 
     private TimeslotFacade getFacade() {
         return ejbFacade;
     }
-
+   
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -98,20 +108,22 @@ public class TimeslotController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Timeslot) getItems().getRowData();
+        selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Timeslot();
-        current.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
+        selected = new Timeslot();
+        selected.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
+        System.out.println("hej");
+        timeslots.add(selected);
         selectedItemIndex = -1;
         return "Create";
     }
 
     public String create() {
-        try {
+        /*try {
             System.out.println("Försöker 1");
             current.getTimeslotPK().setRoom(current.getRoom1().getName());
             System.out.println("Försöker 2");
@@ -137,19 +149,29 @@ public class TimeslotController implements Serializable {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
-        }
+        }*/
+        try {
+	            selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+	            getFacade().create(selected);
+	            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotCreated"));
+	            return prepareCreate();
+	        } catch (Exception e) {
+	            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+	            return null;
+	        }
+        
     }
 
     public String prepareEdit() {
-        current = (Timeslot) getItems().getRowData();
+        selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
 
     public String update() {
         try {
-            current.getTimeslotPK().setRoom(current.getRoom1().getName());
-            getFacade().edit(current);
+            selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+            getFacade().edit(selected);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotUpdated"));
             return "View";
         } catch (Exception e) {
@@ -159,7 +181,7 @@ public class TimeslotController implements Serializable {
     }
 
     public String destroy() {
-        current = (Timeslot) getItems().getRowData();
+        selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -182,7 +204,7 @@ public class TimeslotController implements Serializable {
 
     private void performDestroy() {
         try {
-            getFacade().remove(current);
+            getFacade().remove(selected);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -200,7 +222,7 @@ public class TimeslotController implements Serializable {
             }
         }
         if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
+            selected = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
 
@@ -211,6 +233,10 @@ public class TimeslotController implements Serializable {
         return items;
     }
     
+    public List<Timeslot> getTimeSlots(){
+        return timeslots;
+    } 
+
     public DataModel getItemsByUser(Users user){
         DataModel allItems = getItems();
         getTimeSlotByUser(user);
@@ -235,6 +261,19 @@ public class TimeslotController implements Serializable {
         getPagination().previousPage();
         recreateModel();
         return "List";
+    }
+    
+    public List<Timeslot> todoList(){
+        List<Timeslot> list = new ArrayList<>();
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 1")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        return list;
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {

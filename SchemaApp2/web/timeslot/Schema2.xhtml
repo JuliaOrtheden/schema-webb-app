@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+     > 
+    <style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+    </style>
+    
+    
+    <h:head>
+        
+    </h:head>
+    <h:form id="form">
+        <p:dataGrid var="timeslot" value="#{timeslotController.todoList()}" columns="7"
+        rows="24" id="timeslots"
+        rowsPerPageTemplate="6,12,16">
+         
+        <f:facet name="header">
+            Cars for Sale
+        </f:facet>
+ 
+            <p:panel header="#{timeslot.timeslotPK.room}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+ 
+                <h:outputText value="#{timeslot.timeslotPK.date}" />
+ 
+                <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                    <h:outputText value="hej" styleClass="pi pi-search" style="margin:0 auto;"/>
+                    <f:setPropertyActionListener value="#{timeslot}" target="#{timeslotController.selected}" />
+                </p:commandLink>
+                
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+ 
+    <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty timeslotController.selected}" columnClasses="label,value">
+                <f:facet name="header">
+                </f:facet>
+                 
+                <h:outputText value="Date:" />
+                <h:outputText value="#{timeslotController.selected.timeslotPK.date}" />
+ 
+                <h:outputText value="Time" />
+                <h:outputText value="#{timeslotController.selected.timeslotPK.time}" />
+ 
+                <h:outputText value="Room:" />
+                <h:outputText value="#{timeslotController.selected.timeslotPK.room}"/>
+             
+                <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+</h:form>
+</html>
