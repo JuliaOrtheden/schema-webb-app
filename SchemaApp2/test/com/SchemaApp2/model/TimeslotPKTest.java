@@ -5,6 +5,7 @@
  */
 package com.SchemaApp2.model;
 
+import java.lang.reflect.Field;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,83 +41,113 @@ public class TimeslotPKTest {
 
     /**
      * Test of getDate method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testGetDate() {
+    public void testGetDate() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("getDate");
-        TimeslotPK instance = new TimeslotPK();
-        Date expResult = null;
-        Date result = instance.getDate();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final TimeslotPK instance = new TimeslotPK();
+        final Field field = instance.getClass().getDeclaredField("date");
+        Date expResult = new Date();
+        
+        field.setAccessible(true);
+        field.set(instance, expResult);
+        
+        final Date result = instance.getDate();
+        assertEquals("field wasn't retrieved properly", result, expResult);
     }
 
     /**
      * Test of setDate method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testSetDate() {
+    public void testSetDate() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("setDate");
-        Date date = null;
-        TimeslotPK instance = new TimeslotPK();
+        Date date = new Date();
+        final TimeslotPK instance = new TimeslotPK();
         instance.setDate(date);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        //then
+        final Field field = instance.getClass().getDeclaredField("date");
+        field.setAccessible(true);
+        assertEquals("Fields didn't match", field.get(instance), date);
     }
 
     /**
      * Test of getTime method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testGetTime() {
+    public void testGetTime() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("getTime");
-        TimeslotPK instance = new TimeslotPK();
-        Date expResult = null;
-        Date result = instance.getTime();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final TimeslotPK instance = new TimeslotPK();
+        final Field field = instance.getClass().getDeclaredField("time");
+        Date expResult = new Date();
+        
+        field.setAccessible(true);
+        field.set(instance, expResult);
+        
+        final Date result = instance.getTime();
+        assertEquals("field wasn't retrieved properly", result, expResult);
     }
 
     /**
      * Test of setTime method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testSetTime() {
+    public void testSetTime() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("setTime");
-        Date time = null;
-        TimeslotPK instance = new TimeslotPK();
+        Date time = new Date();
+        final TimeslotPK instance = new TimeslotPK();
         instance.setTime(time);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        //then
+        final Field field = instance.getClass().getDeclaredField("time");
+        field.setAccessible(true);
+        assertEquals("Fields didn't match", field.get(instance), time);
     }
 
     /**
      * Test of getRoom method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testGetRoom() {
+    public void testGetRoom() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("getRoom");
-        TimeslotPK instance = new TimeslotPK();
-        String expResult = "";
-        String result = instance.getRoom();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        final TimeslotPK instance = new TimeslotPK();
+        final Field field = instance.getClass().getDeclaredField("room");
+        String expResult = "TestRoom";
+        
+        field.setAccessible(true);
+        field.set(instance, expResult);
+        
+        final String result = instance.getRoom();
+        assertEquals("field wasn't retrieved properly", result, expResult);
     }
 
     /**
      * Test of setRoom method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testSetRoom() {
+    public void testSetRoom() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("setRoom");
-        String room = "";
-        TimeslotPK instance = new TimeslotPK();
+        String room = "TestRoom";
+        final TimeslotPK instance = new TimeslotPK();
         instance.setRoom(room);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        //then
+        final Field field = instance.getClass().getDeclaredField("room");
+        field.setAccessible(true);
+        assertEquals("Fields didn't match", field.get(instance), room);
     }
 
     /**
@@ -125,12 +156,18 @@ public class TimeslotPKTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        TimeslotPK instance = new TimeslotPK();
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String room = "TestRoom";
+        String roomNotTheSame = "NotTestRoom";
+        Date date = new Date();
+        Date time = new Date();
+        TimeslotPK instance1 = new TimeslotPK(date, time, room);
+        TimeslotPK instance2 = new TimeslotPK(date, time, room);
+        TimeslotPK instanceNotSame = new TimeslotPK(date, time, roomNotTheSame);
+        int result1 = instance1.hashCode();
+        int result2 = instance2.hashCode();
+        int result3 = instanceNotSame.hashCode();
+        assertEquals("Hashcode should be the same", result1, result2);
+        assertNotEquals("Hashcode should not be the same", result1, result3);
     }
 
     /**
@@ -139,27 +176,44 @@ public class TimeslotPKTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object object = null;
-        TimeslotPK instance = new TimeslotPK();
-        boolean expResult = false;
-        boolean result = instance.equals(object);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String room = "TestRoom";
+        String roomNotTheSame = "NotTestRoom";
+        Date date = new Date();
+        Date time = new Date();
+        TimeslotPK instance1 = new TimeslotPK(date, time, room);
+        TimeslotPK instance2 = new TimeslotPK(date, time, room);
+        TimeslotPK instanceNotSame = new TimeslotPK(date, time, roomNotTheSame);
+        
+        assertTrue(instance1.equals(instance2));
+        assertFalse(instance1.equals(instanceNotSame));
     }
 
     /**
      * Test of toString method, of class TimeslotPK.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testToString() {
+    public void testToString() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("toString");
         TimeslotPK instance = new TimeslotPK();
-        String expResult = "";
+        final Field field1 = instance.getClass().getDeclaredField("date");
+        final Field field2 = instance.getClass().getDeclaredField("time");
+        final Field field3 = instance.getClass().getDeclaredField("room");
+
+        Date date = new Date();
+        Date time = new Date();
+        String room = "TestRoom";
+        field1.setAccessible(true);
+        field2.setAccessible(true);
+        field3.setAccessible(true);
+        field1.set(instance, date);
+        field2.set(instance, time);
+        field3.set(instance, room);
+        
+        String expResult = (date + " " + time + " " + room);
         String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("Strings should be the same", expResult, result);
     }
     
 }

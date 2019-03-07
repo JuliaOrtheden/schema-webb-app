@@ -95,7 +95,7 @@ public class TimeslotPK implements Serializable {
 
     @Override
     public String toString() {
-        return "com.SchemaApp2.com.TimeslotPK[ date=" + date + ", time=" + time + ", room=" + room + " ]";
+        return date + " " + time + " " + room;
     }
     
 }

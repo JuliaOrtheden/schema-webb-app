@@ -329,7 +329,6 @@ public class UsersTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Object object = null;
         Users instance1 = new Users("TestUser");
         Users instance2 = new Users("TestUser");
         Users instanceNotSame = new Users ("NotTestUser");
@@ -339,13 +338,22 @@ public class UsersTest {
 
     /**
      * Test of toString method, of class Users.
+     * @throws java.lang.NoSuchFieldException
+     * @throws java.lang.IllegalAccessException
      */
     @Test
-    public void testToString() {
+    public void testToString() throws NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         System.out.println("toString");
         Users instance = new Users();
-        instance.setFirstname("Test");
-        instance.setLastname("User");
+        final Field field1 = instance.getClass().getDeclaredField("firstname");
+        final Field field2 = instance.getClass().getDeclaredField("lastname");
+
+        field1.setAccessible(true);
+        field2.setAccessible(true);
+        field1.set(instance, "Test");
+        field2.set(instance, "User");
+        
+        
         String expResult = "Test User";
         String result = instance.toString();
         assertEquals("Strings should be the same", expResult, result);
