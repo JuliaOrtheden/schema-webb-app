@@ -11,6 +11,7 @@ import com.SchemaApp2.model.Users;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -31,7 +32,7 @@ import javax.faces.model.SelectItem;
 import javax.persistence.Convert;
 
 @Named("timeslotController")
-@ViewScoped
+@SessionScoped
 @ManagedBean
 public class TimeslotController implements Serializable {
 
@@ -57,13 +58,14 @@ public class TimeslotController implements Serializable {
     }*/
     
     public void bookTimeslot(){
-        System.out.println("I controller");
         Date date = new Date();
-        Timeslot timeslot = new Timeslot(date, date, "Grupprum1");
-        timeslot.setUsers(new Users("a"));
-        System.out.println("Current: " + timeslot);
-        getFacade().bookTimeslot(timeslot);
-        //items.setWrappedData(timeslot);
+        
+        Timeslot timeslot = new Timeslot(date, date, "Grupprum 3");
+        timeslot = selected;
+        //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+        getFacade().create(selected);
+        recreateModel();
+        selectedItemIndex = -1;
     }
     
     public Timeslot getSelected() {
@@ -71,13 +73,16 @@ public class TimeslotController implements Serializable {
             selected = new Timeslot();
             selected.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
             selectedItemIndex = -1;
-            System.out.println(selected.toString());
         }
         return selected;
     }
     
     public void setSelected(Timeslot timeslot){
         selected = timeslot;
+    }
+    
+    public void hej(String string){
+        System.out.println(string);
     }
 
     private TimeslotFacade getFacade() {
@@ -116,7 +121,6 @@ public class TimeslotController implements Serializable {
     public String prepareCreate() {
         selected = new Timeslot();
         selected.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
-        System.out.println("hej");
         timeslots.add(selected);
         selectedItemIndex = -1;
         return "Create";
@@ -263,16 +267,39 @@ public class TimeslotController implements Serializable {
         return "List";
     }
     
+    public List<String> getDate(){
+        Date n = new Date();
+        List<String> dates = new ArrayList<>();
+        int m = Calendar.MONTH + 1;
+        int date = Calendar.DATE;
+        int d = Calendar.DAY_OF_MONTH;
+        int weekDay = Calendar.DAY_OF_WEEK;
+        for (int i = 1; i < 8; i++) {
+            dates.add((weekDay-d+i)+"/" + m + "/");
+        }
+        return dates;
+    }
+    
+    
     public List<Timeslot> todoList(){
         List<Timeslot> list = new ArrayList<>();
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 1")));
+        Date date = new Date();
+        list.add(new Timeslot(new TimeslotPK(date, date, "Grupprum 1")));
         list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
         list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
         list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(date, date, "Grupprum 1")));
         list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
         list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
         list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
+        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
         return list;
     }
 

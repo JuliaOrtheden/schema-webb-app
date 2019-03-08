@@ -17,22 +17,39 @@
     <h:head>
         
     </h:head>
+    <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" />
+    <h:form>
+        <select id="choosenRoom" colMd="2" required="false" labelColMd="2">
+                    <option value="Grupprum 1">Grupprum 1</option>
+                    <option value="Grupprum 2">Grupprum 2</option>
+                    <option value="Grupprum 3">Grupprum 3</option>
+                    <option value="Motionshall">Motionshall</option>
+                    <option value="Musikrum">Musikrum</option>
+            </select>
+        <h:commandLink action="#{timeslotController.hej()}" value="#{bundle.SearchByRoom}"/>
+    </h:form>
     <h:form id="form">
-        <p:dataGrid var="timeslot" value="#{timeslotController.todoList()}" columns="7"
-        rows="24" id="timeslots"
+        <p:dataGrid var="date" value="#{timeslotController.todoList()}" columns="7"
+        rows="7" id="dates"
         rowsPerPageTemplate="6,12,16">
          
+            <p:panel header="#{timeslotController.date}"></p:panel>
         <f:facet name="header">
-            Cars for Sale
+            Boka Grupprum
         </f:facet>
- 
+        </p:dataGrid>
+        
+        <p:dataGrid var="timeslot" value="#{timeslotController.todoList()}" columns="7"
+        rows="14" id="timeslots"
+        rowsPerPageTemplate="6,12,16">
+            
             <p:panel header="#{timeslot.timeslotPK.room}" style="text-align:center">
             <h:panelGrid columns="1" style="width:100%">
  
                 <h:outputText value="#{timeslot.timeslotPK.date}" />
  
                 <p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
-                    <h:outputText value="hej" styleClass="pi pi-search" style="margin:0 auto;"/>
+                    <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{timeslot}" target="#{timeslotController.selected}" />
                 </p:commandLink>
                 
