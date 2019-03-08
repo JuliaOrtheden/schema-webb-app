@@ -1,28 +1,38 @@
 package com.SchemaApp2.view;
 
 import com.SchemaApp2.model.Room;
+import com.SchemaApp2.model.Slot;
 import com.SchemaApp2.model.Timeslot;
 import com.SchemaApp2.view.util.JsfUtil;
 import com.SchemaApp2.view.util.PaginationHelper;
 import com.SchemaApp2.model.TimeslotFacade;
+import com.SchemaApp2.model.TimeslotHelper;
 import com.SchemaApp2.model.TimeslotPK;
 import com.SchemaApp2.model.Users;
 
 import java.io.Serializable;
+import static java.lang.System.console;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Startup;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
 import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,6 +50,7 @@ import net.bootsfaces.component.dataTable.DataTable;
 public class TimeslotController implements Serializable {
 
     private Timeslot selected;
+    private Slot selectedSlot;
     private DataModel items = null;
     @EJB
     private com.SchemaApp2.model.TimeslotFacade ejbFacade;
@@ -58,20 +69,66 @@ public class TimeslotController implements Serializable {
         items.setWrappedData(list);
         
     }
+    private List<Slot> slots;
+    
+    @ManagedProperty("#{timeslotHelper}")
+    private TimeslotHelper timeslotHelper;
+    
+    @PostConstruct
+    public void init() {
+        System.out.println("sdfghjkjhgfghjklkjhgfghjklkjhgfghjk");
+        timeslotHelper = new TimeslotHelper();
+        slots = new ArrayList<>();
+        slots = timeslotHelper.createWeek();
+    }
+    
+    public List<Slot> getSlots(){
+        return slots;
+    }
    /* public List<Timeslot> filter(){
         
     }*/
+    public Timeslot convertSlotToTimeslot(Slot slot){
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+        String sDate = slot.getDate();
+  
+        String sTime = slot.getStartTime();
+        
+        Date date = new Date();
+        Date time = new Date();
+        try {
+            date = format.parse(sDate);
+            time = timeFormat.parse(sTime);
+        } catch (ParseException ex) {
+            Logger.getLogger(TimeslotController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        String room = slot.getRoom();
+        Timeslot timeslot = new Timeslot(date, time, room);
+        timeslot.setDescription("hej");
+        return timeslot;      
+    }
     
     public void bookTimeslot(){
-        Date date = new Date();
-        
-        Timeslot timeslot = new Timeslot(date, date, "Grupprum 3");
-        timeslot = selected;
+  
+        Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
         //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
-        selected.setDescription("Plugga");
-        getFacade().create(selected);
+        getFacade().create(timeslot);
         recreateModel();
         selectedItemIndex = -1;
+    }
+    
+    public Slot getSelectedSlot() {
+        if (selectedSlot == null) {
+            selectedSlot = new Slot();
+            selectedItemIndex = -1;
+        }
+        return selectedSlot;
+    }
+    
+    public void setSelectedSlot(Slot slot){
+        selectedSlot = slot;
     }
     
     public Timeslot getSelected() {

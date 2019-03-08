@@ -117,7 +117,7 @@ public class Timeslot implements Serializable {
 
     @Override
     public String toString() {
-        return "com.SchemaApp2.com.Timeslot[ timeslotPK=" + timeslotPK + " ]";
+        return timeslotPK.getDate() + " " + timeslotPK.getTime() + " " + timeslotPK.getRoom();
     }
     
 }
