@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+     > 
+    <style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+    </style>
+    <h:head>
+        
+    </h:head>
+    <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" ></h:button>
+    <h:form id="form">
+        <select id="choosenRoom" colMd="2" required="false" labelColMd="2">
+                    <option value="Grupprum 1">Grupprum 1</option>
+                    <option value="Grupprum 2">Grupprum 2</option>
+                    <option value="Grupprum 3">Grupprum 3</option>
+                    <option value="Motionshall">Motionshall</option>
+                    <option value="Musikrum">Musikrum</option>
+            </select>
+                    <h:commandLink action="#{timeslotController.hej()}" value="#{bundle.SearchByRoom}"/>
+
+    <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                 paginator="true" rows="10" style="margin-bottom:20px">
+ 
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Måndag" />
+            </f:facet>
+            <h:commandLink value ="Tid" action="#{timeslotController.bookTimeslot()}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Tisdag"/>
+            </f:facet>
+            <h:outputText value="#{slot.room}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Onsdag" />
+            </f:facet>
+             <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                 <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
+                 <f:setPropertyActionListener value="#{slot}" target="#{timeslotController.selectedSlot}" />
+            </p:commandButton>
+            <h:outputText value="#{slot.date}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Torsdag" />
+            </f:facet>
+            <h:outputText value="#{timeslotController.selectedSlot}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Fredag" />
+            </f:facet>
+            <h:outputText value="#{slot.endTime}" />
+        </p:column>
+        
+      
+    </p:dataTable>
+
+     <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="label,value">
+                <f:facet name="header">
+                </f:facet>
+                 
+                <h:outputText value="Date:" />
+                <h:outputText value="#{timeslotController.selectedSlot.date}" />
+ 
+                <h:outputText value="Day" />
+                <h:outputText value="#{timeslotController.selectedSlot.day}" />
+ 
+                <h:outputText value="StartTime" />
+                <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
+                
+                 <h:outputText value="Endtime" />
+                <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
+                
+                 <h:outputText value="Room" />
+                <h:outputText value="#{timeslotController.selectedSlot.room}"/>
+             
+                <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+      
+   
+ 
+ 
+</h:form>
+</html>
