@@ -24,7 +24,7 @@ import javax.inject.Named;
 public class TimeslotHelper {
     
     
-    public List<Slot> createWeek(){
+    public List<Slot> createWeek(){       
         List<Slot> list = new ArrayList<>();
         String[] weekDays = {"M", "T", "O", "TO", "F", "L", "S"};
         int j = 0;

@@ -52,7 +52,8 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
         query.setParameter("time", timeslot.getTimeslotPK().getTime());
         query.setParameter("room", timeslot.getTimeslotPK().getRoom());
         query.setParameter("description", timeslot.getDescription());
-        query.setParameter("users", timeslot.getUsers());
+        query.setParameter("users", timeslot.getUsers()).executeUpdate();
+        
     }
      
     
