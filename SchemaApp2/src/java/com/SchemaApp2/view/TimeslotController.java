@@ -9,6 +9,7 @@ import com.SchemaApp2.model.TimeslotFacade;
 import com.SchemaApp2.model.TimeslotHelper;
 import com.SchemaApp2.model.TimeslotPK;
 import com.SchemaApp2.model.Users;
+import com.SchemaApp2.model.WeekSlots;
 
 import java.io.Serializable;
 import static java.lang.System.console;
@@ -69,7 +70,7 @@ public class TimeslotController implements Serializable {
         items.setWrappedData(list);
         
     }
-    private List<Slot> slots;
+    private List<WeekSlots> slots;
     
     @ManagedProperty("#{timeslotHelper}")
     private TimeslotHelper timeslotHelper;
@@ -82,7 +83,7 @@ public class TimeslotController implements Serializable {
         slots = timeslotHelper.createWeek();
     }
     
-    public List<Slot> getSlots(){
+    public List<WeekSlots> getSlots(){
         return slots;
     }
    /* public List<Timeslot> filter(){

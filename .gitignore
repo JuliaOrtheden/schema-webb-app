@@ -84,3 +84,9 @@ SchemaApp2/database/*
 # End of https://www.gitignore.io/api/database
 
 # End of https://www.gitignore.io/api/macos,windows,netbeans,java-web
+
+SchemaApp2/nbproject/build-impl.xml
+SchemaApp2/nbproject/genfiles.properties
+SchemaApp2/nbproject/project.properties
+SchemaApp2/nbproject/project.xml
+
