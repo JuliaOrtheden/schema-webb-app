@@ -15,9 +15,6 @@ public class Slot {
         return startTime;
     }
 
-    public String getEndTime() {
-        return endTime;
-    }
 
     public String getDate() {
         return date;
@@ -27,24 +24,17 @@ public class Slot {
         return room;
     }
 
-    public String getDay() {
-        return day;
-    }
     
     private String startTime;
-    private String endTime;
     private String date;
     private String room;
-    private String day;
     
     
     
-    public Slot(String startTime, String endTime, String date, String room, String day){
+    public Slot(String startTime, String date, String room){
         this.startTime = startTime;
-        this.endTime = endTime;
         this.date = date;
         this.room = room;
-        this.day = day;
     }
     
     public Slot(){}
@@ -53,9 +43,6 @@ public class Slot {
         this.startTime = time;
     }
 
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
 
     public void setDate(String date) {
         this.date = date;
@@ -65,8 +52,5 @@ public class Slot {
         this.room = room;
     }
 
-    public void setDay(String day) {
-       this.day = day;
-    }
     
 }

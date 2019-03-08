@@ -24,20 +24,27 @@ import javax.inject.Named;
 public class TimeslotHelper {
     
     
-    public List<Slot> createWeek(){       
-        List<Slot> list = new ArrayList<>();
-        String[] weekDays = {"M", "T", "O", "TO", "F", "L", "S"};
-        int j = 0;
+
+    public List<WeekSlots> createWeek(){
+        List<WeekSlots> list = new ArrayList<>();
         Calendar now = Calendar.getInstance();
-        for (String weekDay:weekDays){
-            j++;
-            for (int i = 1; i < 25; i++){
-                
-                list.add(new Slot( (i+ ":00:00"), (i+1 +":00:00"), now.get(Calendar.DATE) + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1", weekDay));
+        
+        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+        int monday = now.get(Calendar.DATE)-dayOfWeek+2;
+        System.out.println(monday);
+        System.out.println(dayOfWeek);
+            for (int i = 0; i < 24; i++){
+                list.add(new WeekSlots(
+                new Slot((i+ ":00:00"), monday + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+1 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+2 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+3 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+4 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+5 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+6 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1")));
             
+                
             }
-           
-        }
          return list;
     }
 
