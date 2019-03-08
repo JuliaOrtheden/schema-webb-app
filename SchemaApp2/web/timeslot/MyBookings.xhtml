@@ -4,113 +4,101 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+    
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
             <h:outputText value="Mina Bokningar"> </h:outputText>
         </ui:define>
-
         <ui:define name="body">
             <ui:param name="user" value="#{user}" />
-            <h:form styleClass="jsfcrud_list_form">
-                <h:panelGroup id="messagePanel" layout="block">
-                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                </h:panelGroup>
-                <h:outputText escape="false" value="#{bundle.ListTimeslotEmpty}" rendered="#{timeslotController.items.rowCount == 0}"/>
-                <h:panelGroup rendered="#{timeslotController.items.rowCount > 0}">
-                    <h:outputText value="#{timeslotController.pagination.pageFirstItem + 1}..#{timeslotController.pagination.pageLastItem + 1}/#{timeslotController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{timeslotController.previous}" value="#{bundle.Previous} #{timeslotController.pagination.pageSize}" rendered="#{timeslotController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{timeslotController.next}" value="#{bundle.Next} #{timeslotController.pagination.pageSize}" rendered="#{timeslotController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{timeslotController.getItemsByUser(user)}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTimeslotTitle_timeslotPK_time}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.timeslotPK.time}">
-                                <f:convertDateTime pattern="HH:mm:ss" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTimeslotTitle_timeslotPK_date}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.timeslotPK.date}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
-                            </h:outputText>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTimeslotTitle_description}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTimeslotTitle_room1}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.room1}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListTimeslotTitle_users}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.users}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{timeslotController.prepareView}" value="#{bundle.ListTimeslotViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{timeslotController.prepareEdit}" value="#{bundle.ListTimeslotEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{timeslotController.destroy}" value="#{bundle.ListTimeslotDestroyLink}"/>
-                        </h:column>
-                    </h:dataTable>
-                    
-                </h:panelGroup>
-                <br />
-                <h:commandLink action="#{timeslotController.prepareCreate}" value="#{bundle.ListTimeslotCreateLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListTimeslotIndexLink}"/>
-            </h:form>
+            
+            <b:row>
+            <b:form id="bookedForm">
+            <b:dataTable
+                    id="bookedTable"
+                    widgetVar="me"
+                    var="b" value="#{timeslotController.items}" span="6"
+                    striped="true" 
+                    page-length-menu="5,10,15"
+                    page-length="5"
+                    onpage="console.log(me); ajax:book.page()"
+                    searching="false"                   
+                  
+            >
+                <b:dataTableColumn value="#{b.timeslotPK.date}" order="asc"/>
+                <b:dataTableColumn value="#{b.timeslotPK.time}"/>
+                <b:dataTableColumn value="#{b.timeslotPK.room}"/>
+                <b:dataTableColumn value="#{b.description}"/>
+                <b:dataTableColumn value="#{b.users}"/>
 
+                <b:dataTableColumn label="Edit" orderable="false">
+                        <h:commandLink onclick="$('.formValidationModalClass').modal('show')" value="Edit"
+                                       actionListener="#{timeslotController.prepareEdit2}"
+                                       />
+                </b:dataTableColumn>
+                
+                
+                  
+                <b:dataTableColumn label="Delete" orderable="false">
+                    <h:commandLink actionListener="#{timeslotController.destroy()}" value="#{bundle.ListTimeslotDestroyLink}"
+                                     action="/timeslot/MyBookings"/>
+                </b:dataTableColumn>
 
-
+            </b:dataTable>
+            </b:form>
+        </b:row>
+            
             <h:body>
-                <h:button outcome="/timeslot/Schema" value="Boka" styleClass="b" />
+                <h:button outcome="/timeslot/Schema2" value="Boka" styleClass="b" />
             </h:body>
-
-            <div id="work" >
-                <button id="myBtn" onclick="popup()" >Open Modal</button>
-
-
-                <div id="myModal" class="modal">
-
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>Some text in the Modal..</p>
-                        <script type="text/javascript">
-                            function popup()
-                            {
-                                var btn = document.getElementById("myBtn");
-                                var modal = document.getElementById('myModal');
-                                modal.style.display = "block";
-                            }
-
-                        </script>
-                    </div>
-
-
-
-                </div>
-            </div>   
-
+            
+            
+            
+            <b:modal title="Mina Bokningar" styleClass="formValidationModalClass"
+                 closable="false"
+                 closeOnEscape="true">
+            <b:form>
+                <b:row >
+                <b:column span="12">
+                    <h2>Edit</h2>
+                </b:column>
+            </b:row>
+            <b:row>
+                <b:column span="2">
+                    <h:outputLabel value="Date" />
+                </b:column>
+                <b:inputText value="#{timeslotController.selected.timeslotPK.date}" size="15" span="2" 
+                             />
+            </b:row>
+            <b:row>
+                <b:column span="2" >
+                    <h:outputLabel value="Time" />
+                </b:column>
+                <b:inputText value="#{timeslotController.selected.timeslotPK.time}" size="15" span="2" 
+                             />
+            </b:row>
+            <b:row>
+                <b:column span="2">
+                    <h:outputLabel value="Room" />
+                </b:column>
+                <b:inputText value="#{timeslotController.selected.timeslotPK.room}" size="15" span="2" 
+                             />
+            </b:row>
+                <b:row>
+                <b:commandButton value="Done"  look="primary" span="2"
+                                 actionListener="#{timeslotController.update}" action="/timeslot/MyBookings"/>
+                <b:commandButton value="Cancel"  look="info" span="2"
+                                 action="/timeslot/MyBookings" immediate="true"/>
+            </b:row>
+            
+            </b:form>
+            </b:modal>
+            
+    
         </ui:define>
-
 
     </ui:composition>
 </html>

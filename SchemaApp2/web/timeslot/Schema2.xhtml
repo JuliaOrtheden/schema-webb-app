@@ -6,6 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
      > 
     <style type="text/css">
     .value {
@@ -17,7 +18,7 @@
     <h:head>
         
     </h:head>
-    <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" />
+    <h:button outcome="/timeslot/MyBookings" value="Mina bokningar" styleClass="b" />
     <h:form>
         <select id="choosenRoom" colMd="2" required="false" labelColMd="2">
                     <option value="Grupprum 1">Grupprum 1</option>
@@ -26,7 +27,7 @@
                     <option value="Motionshall">Motionshall</option>
                     <option value="Musikrum">Musikrum</option>
             </select>
-        <h:commandLink action="#{timeslotController.hej()}" value="#{bundle.SearchByRoom}"/>
+        <!--<h:commandLink action="#{timeslotController}" value="#{bundle.SearchByRoom}"/>-->
     </h:form>
     <h:form id="form">
         <p:dataGrid var="date" value="#{timeslotController.todoList()}" columns="7"

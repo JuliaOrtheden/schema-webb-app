@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -30,6 +32,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.persistence.Convert;
+import net.bootsfaces.component.dataTable.DataTable;
 
 @Named("timeslotController")
 @SessionScoped
@@ -43,6 +46,8 @@ public class TimeslotController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Timeslot> timeslots = new ArrayList<Timeslot>();
+    private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
+
 
     public TimeslotController() {
     }
@@ -63,6 +68,7 @@ public class TimeslotController implements Serializable {
         Timeslot timeslot = new Timeslot(date, date, "Grupprum 3");
         timeslot = selected;
         //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+        selected.setDescription("Plugga");
         getFacade().create(selected);
         recreateModel();
         selectedItemIndex = -1;
@@ -80,9 +86,14 @@ public class TimeslotController implements Serializable {
     public void setSelected(Timeslot timeslot){
         selected = timeslot;
     }
+    public void page() {
+        // Faces context hold all data relevant for this request
+        DataTable dt = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("bookedForm:bookedTable");
+        LOG.log(Level.INFO, "Test {0}", dt.getJQueryEvents());
+    }
     
-    public void hej(String string){
-        System.out.println(string);
+    public void hej(){
+        System.out.println("HEJ");
     }
 
     private TimeslotFacade getFacade() {
@@ -171,6 +182,12 @@ public class TimeslotController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
+    
+    public String prepareEdit2(){
+        selected = (Timeslot) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "MyBookings";
+    }
 
     public String update() {
         try {
@@ -185,6 +202,7 @@ public class TimeslotController implements Serializable {
     }
 
     public String destroy() {
+        System.out.println("destroy");
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
@@ -208,6 +226,7 @@ public class TimeslotController implements Serializable {
 
     private void performDestroy() {
         try {
+            System.out.println("Förstör");
             getFacade().remove(selected);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotDeleted"));
         } catch (Exception e) {
