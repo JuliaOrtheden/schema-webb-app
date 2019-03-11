@@ -78,7 +78,6 @@ public class TimeslotController implements Serializable {
     
     @PostConstruct
     public void init() {
-        System.out.println("sdfghjkjhgfghjklkjhgfghjklkjhgfghjk");
         timeslotHelper = new TimeslotHelper();
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();

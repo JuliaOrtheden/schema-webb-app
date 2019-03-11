@@ -33,16 +33,18 @@ public class TimeslotHelper {
         int monday = now.get(Calendar.DATE)-dayOfWeek+2;
         System.out.println(monday);
         System.out.println(dayOfWeek);
+                        for(int j = 0 ; j< 5; j++){
+
             for (int i = 0; i < 24; i++){
                 list.add(new WeekSlots(
-                new Slot((i+ ":00:00"), monday + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
-                new Slot((i+ ":00:00"), monday+1 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
-                new Slot((i+ ":00:00"), monday+2 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
-                new Slot((i+ ":00:00"), monday+3 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
-                new Slot((i+ ":00:00"), monday+4 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
-                new Slot((i+ ":00:00"), monday+5 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
-                new Slot((i+ ":00:00"), monday+6 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1")));
-            
+                new Slot((i+ ":00:00"), monday+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+1+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+2+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+3+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+4+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+5+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1"),
+                new Slot((i+ ":00:00"), monday+6+j*7 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1")));
+                }
                 
             }
          return list;
