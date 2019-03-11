@@ -14,7 +14,7 @@
         }
     </style>
     <h:head>
-
+        
     </h:head>
     <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" ></h:button>
     <h:form id="form">
@@ -36,18 +36,28 @@
             <f:facet name="header">
                 Boka ett jävla rum dåådå
             </f:facet>
+            <p:column style="width:100px">
+            <f:facet name="header">
+                <h:outputText value="Tid" />
+            </f:facet>
+            <h:outputText value="#{slot.monday.startTime}" styleClass="pi pi-search" style="margin:0 auto;"/>
+        </p:column>
+            
             <p:columnGroup type="header">
                 <p:row>
-                    <p:column headerText="#{slot.monday.date}" />
-                    <p:column headerText="This Year" />
-                    <p:column headerText="Last Year" />
-                    <p:column headerText="This Year" />
+                    <p:column headerText="Time" />
+                    <p:column headerText="Monday" />
+                    <p:column headerText="Tuesday" />
+                    <p:column headerText="Wednesday" />
+                    <p:column headerText="Thursday" />
+                    <p:column headerText="Friday" />
+                    <p:column headerText="Saturday" />
+                    <p:column headerText="Sunday" />
                 </p:row>
             </p:columnGroup>
         
       
-        </p:dataTable>
-
+            <p:column>
                 <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
@@ -130,9 +140,6 @@
                 </p:panelGrid>
             </p:outputPanel>
         </p:dialog>
-
-
-
 
     </h:form>
 </html>
