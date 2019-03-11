@@ -33,6 +33,12 @@ public class TimeslotFacade extends AbstractFacade<Timeslot> {
         List<Timeslot> queryResult = query.getResultList();
         return queryResult;
     }
+    
+    public List<Timeslot> getBookedTimeslots(){
+        TypedQuery<Timeslot> query = em.createNamedQuery("Timeslot.findAll", Timeslot.class);
+        List<Timeslot> queryResult = query.getResultList();
+        return queryResult;
+    }
 
     public TimeslotFacade() {
         super(Timeslot.class);

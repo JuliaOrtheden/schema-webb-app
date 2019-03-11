@@ -23,24 +23,33 @@ public class Slot {
     public String getRoom() {
         return room;
     }
+    
+    public boolean getBooked(){
+        return booked;
+    }
 
     
     private String startTime;
     private String date;
     private String room;
+    private boolean booked;
     
     
-    
-    public Slot(String startTime, String date, String room){
+    public Slot(String startTime, String date, String room, boolean booked){
         this.startTime = startTime;
         this.date = date;
         this.room = room;
+        this.booked = booked;
     }
     
     public Slot(){}
     
      public void setStartTime(String time) {
         this.startTime = time;
+    }
+     
+    public void setBooked(boolean booked){
+        this.booked = booked;
     }
 
 
@@ -51,6 +60,7 @@ public class Slot {
     public void setRoom(String room) {
         this.room = room;
     }
+    
 
     
 }

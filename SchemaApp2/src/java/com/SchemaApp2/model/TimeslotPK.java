@@ -93,9 +93,9 @@ public class TimeslotPK implements Serializable {
         return true;
     }
 
-    @Override
+    /*@Override
     public String toString() {
-        return date + " " + time + " " + room;
-    }
+        return date.toString(); //+ " " + time + " " + room;
+    }*/
     
 }
