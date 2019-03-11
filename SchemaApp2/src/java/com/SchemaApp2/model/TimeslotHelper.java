@@ -42,6 +42,7 @@ public class TimeslotHelper {
                 new Slot((i+ ":00:00"), monday+5 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1", false),
                 new Slot((i+ ":00:00"), monday+6 + "/" + (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR), "Grupprum 1", false)));
             
+
                 
             }
          return list;
