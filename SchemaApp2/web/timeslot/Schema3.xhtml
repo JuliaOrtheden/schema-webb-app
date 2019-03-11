@@ -19,7 +19,7 @@
     <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" ></h:button>
     <h:form id="form">
         <b:formGroup>
-        <b:selectOneMenu value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2">
+            <b:selectOneMenu  id="select" value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2">
                             <f:selectItem itemLabel="(Please select)" itemValue="" />
                             <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
                             <f:selectItem itemLabel="Grupprum 2" itemValue="Grupprum 2" />
@@ -30,7 +30,7 @@
         </b:formGroup>
     <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                 paginator="true" rows="10" style="margin-bottom:20px">
+                 paginator="true" rows="24" style="margin-bottom:20px">
  
         <p:column style="width:100px">
             <f:facet name="header">
@@ -91,8 +91,6 @@
             </p:commandButton>
             <h:outputText value="#{slot.friday.date}" />
         </p:column>
-        
-      
     </p:dataTable>
 
      <p:dialog header="Boka" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
@@ -110,7 +108,7 @@
                 
                 
                  <h:outputText value="Room" />
-                <h:outputText value="#{timeslotController.selectedSlot.room}"/>
+                 <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
              
                 <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
             </p:panelGrid>

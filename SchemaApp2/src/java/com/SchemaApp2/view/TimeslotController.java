@@ -57,6 +57,7 @@ public class TimeslotController implements Serializable {
     private com.SchemaApp2.model.TimeslotFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String selectedRoom;
     private List<Timeslot> timeslots = new ArrayList<Timeslot>();
     private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
 
