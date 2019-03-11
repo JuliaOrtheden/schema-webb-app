@@ -133,6 +133,24 @@ public class TimeslotController implements Serializable {
         selectedSlot = slot;
     }
     
+    public void updateWeek(String room){
+        /*for (int i = 0; i < (5*24); i++) {
+            slots.get(i).getMonday().setRoom(room);
+            slots.get(i).getTuesday().setRoom(room);
+            slots.get(i).getWednesday().setRoom(room);
+            slots.get(i).getThursday().setRoom(room);
+            slots.get(i).getFriday().setRoom(room);
+            slots.get(i).getSaturday().setRoom(room);
+            slots.get(i).getSunday().setRoom(room);
+            
+        }
+        */
+        slots = timeslotHelper.reCreateWeek(room);
+        //selectedRoom = room;
+        //System.out.println(room);
+        //recreateModel();
+    }
+    
     public Timeslot getSelected() {
         if (selected == null) {
             selected = new Timeslot();
@@ -151,9 +169,12 @@ public class TimeslotController implements Serializable {
         LOG.log(Level.INFO, "Test {0}", dt.getJQueryEvents());
     }
     
-    public void hej(){
-        System.out.println("HEJ");
+    /*public String hej(){
+        selectedRoom = timeslotHelper.getList().get(1).getMonday().getRoom();
+        System.out.println(selectedRoom);
+        return selectedRoom;
     }
+    */
 
     private TimeslotFacade getFacade() {
         return ejbFacade;

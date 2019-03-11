@@ -27,6 +27,8 @@
                             <f:selectItem itemLabel="Motionshall" itemValue="Motionshall"/>
                             <f:selectItem itemLabel="Musikrum" itemValue="Musikrum"/>
         </b:selectOneMenu>
+            <b:commandLink value="Update Room" action="#{timeslotController.updateWeek(timeslotController.selectedSlot
+                                                         .room)}"/>
         </b:formGroup>
     <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
@@ -95,7 +97,7 @@
 
      <p:dialog header="Boka" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
         <p:outputPanel id="carDetail" style="text-align:center;">
-            <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="label,value">
+            <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="value,value">
                 <f:facet name="header">
                 </f:facet>
                  

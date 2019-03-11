@@ -24,9 +24,13 @@ import javax.inject.Named;
 public class TimeslotHelper {
     
     
+    List<WeekSlots> list = new ArrayList<>();
+    
+    public List<WeekSlots> getList(){
+        return list;
+    }
 
     public List<WeekSlots> createWeek(){
-        List<WeekSlots> list = new ArrayList<>();
         Calendar now = Calendar.getInstance();
         
         int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
@@ -47,6 +51,19 @@ public class TimeslotHelper {
                 }
                 
             }
+         return list;
+    }
+    
+    public List<WeekSlots> reCreateWeek(String room){
+        for (int i = 0; i < list.size();i++) {
+            list.get(i).getMonday().setRoom(room);
+            list.get(i).getTuesday().setRoom(room);
+            list.get(i).getWednesday().setRoom(room);
+            list.get(i).getThursday().setRoom(room);
+            list.get(i).getFriday().setRoom(room);
+            list.get(i).getSaturday().setRoom(room);
+            list.get(i).getSunday().setRoom(room);
+        }
          return list;
     }
 
