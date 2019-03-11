@@ -58,7 +58,7 @@
         
       
             <p:column>
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -67,7 +67,7 @@
 
             <p:column>
                 
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.tuesday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -76,7 +76,7 @@
 
             <p:column>
                 
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.wednesday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -85,7 +85,7 @@
 
             <p:column>
                 
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.thursday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -93,7 +93,7 @@
             </p:column>
             <p:column>
               
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.friday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -101,7 +101,7 @@
             </p:column>
             <p:column>
               
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.saturday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -109,7 +109,7 @@
             </p:column>
             <p:column>
               
-                <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
+                <p:commandButton update=":form:carDetail" oncomplete="PF('bookDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.sunday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
@@ -119,25 +119,25 @@
         </p:dataTable>
 
         
-        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:dialog header="Booking confirmation" widgetVar="bookDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <p:outputPanel id="carDetail" style="text-align:center;">
-                <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="label,value">
+                <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="value ,value">
                     <f:facet name="header">
                     </f:facet>
 
-                    <h:outputText value="Date:" />
+                    <h:outputText value="Date:"/>
                     <h:outputText value="#{timeslotController.selectedSlot.date}" />
-
-
-                    <h:outputText value="StartTime" />
+                    
+                    <h:outputText id="starttime" value="StartTime" />
                     <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
 
 
-                    <h:outputText value="Room" />
+                    <h:outputText id="room" value="Room" />
                     <h:outputText value="#{timeslotController.selectedSlot.room}"/>
 
-                    <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
                 </p:panelGrid>
+                <h:commandButton value="Boka" action="#{timeslotController.bookTimeslot()}"/>
+
             </p:outputPanel>
         </p:dialog>
 
