@@ -27,12 +27,17 @@ public class Slot {
     public boolean getBooked(){
         return booked;
     }
+    
+    public String getDescription(){
+        return description;
+    }
 
     
     private String startTime;
     private String date;
     private String room;
     private boolean booked;
+    private String description;
     
     
     public Slot(String startTime, String date, String room, boolean booked){
@@ -60,6 +65,10 @@ public class Slot {
     public void setRoom(String room) {
         this.room = room;
     }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     
 
     

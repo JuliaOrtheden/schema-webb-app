@@ -24,8 +24,8 @@
                             <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
                             <f:selectItem itemLabel="Grupprum 2" itemValue="Grupprum 2" />
                             <f:selectItem itemLabel="Grupprum 3" itemValue="Grupprum 3"/>
-                            <f:selectItem itemLabel="Motionshall" itemValue="Motionshall"/>
-                            <f:selectItem itemLabel="Musikrum" itemValue="Musikrum"/>
+                            <f:selectItem itemLabel="Motionshallen" itemValue="Motionshallen"/>
+                            <f:selectItem itemLabel="Musikrummet" itemValue="Musikrummet"/>
         </b:selectOneMenu>
             <b:commandLink value="Update Room" action="#{timeslotController.updateWeek(timeslotController.selectedSlot
                                                          .room)}"/>
@@ -111,6 +111,9 @@
                 
                  <h:outputText value="Room" />
                  <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
+                 
+                 <h:outputText value="Beskrivning"/>
+                 <h:inputText value="#{timeslotController.selectedSlot.description}"/>
              
                 <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
             </p:panelGrid>
