@@ -45,6 +45,7 @@
                 <b:dataTableColumn label="Delete" orderable="false">
                     <h:commandLink actionListener="#{timeslotController.destroy()}" value="#{bundle.ListTimeslotDestroyLink}"
                                      action="/timeslot/MyBookings"/>
+                    
                 </b:dataTableColumn>
 
             </b:dataTable>
@@ -57,7 +58,7 @@
             
             
             
-            <b:modal title="Mina Bokningar" styleClass="formValidationModalClass"
+            <b:modal id="Details" title="Mina Bokningar" styleClass="formValidationModalClass"
                  closable="false"
                  closeOnEscape="true">
             <b:form>
