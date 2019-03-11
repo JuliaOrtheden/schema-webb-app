@@ -81,8 +81,70 @@ public class TimeslotController implements Serializable {
         timeslotHelper = new TimeslotHelper();
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
+        
+        List<Timeslot> bookedList = getBookedTimeslots();
+        
+        for(WeekSlots weekSlot: slots){
+            if(!bookedList.isEmpty()){
+                for(Timeslot ts: bookedList){
+                    Slot mon = weekSlot.getMonday();
+                    Slot tue = weekSlot.getTuesday();
+                    Slot wed = weekSlot.getWednesday();
+                    Slot thu = weekSlot.getThursday();
+                    Slot fri = weekSlot.getFriday();
+                    if(compare(ts,mon)){
+                        mon.setBooked(true);
+                        System.out.println("Mon True");
+                    }else if(compare(ts,tue)){
+                        tue.setBooked(true);
+                         System.out.println("Tue True");
+                    }else if(compare(ts,wed)){
+                        wed.setBooked(true);
+                         System.out.println("Wed True");
+                    }else if(compare(ts,thu)){
+                        thu.setBooked(true);
+                         System.out.println("Thu True");
+                    }else if(compare(ts,fri)){
+                        fri.setBooked(true);
+                         System.out.println("Fri True");
+                    } 
+                }
+            }
+        }
+        
     }
+    public String newDateFormat(Date date){
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        String dateString = simpleDateFormat.format(date);
+        return dateString;
+    }
+    public String newTimeFormat(Date time){
+        String pattern = "HH:mm:ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        String timeString = simpleDateFormat.format(time);
+        return timeString;
+    }
+        
+    public boolean compare(Timeslot timeslot, Slot slot){
+        TimeslotPK tpk = timeslot.getTimeslotPK();
+        String timeslotDate = newDateFormat(tpk.getDate());
+        String timeslotRoom = tpk.getRoom();
+        String timeslotTime = newTimeFormat(tpk.getTime());
+        
+        System.out.println("Timeslot values " + timeslotDate + " " + timeslotRoom + " " + timeslotTime);
+        System.out.println("Slot values " + slot.getDate() + " " + slot.getRoom() + " " + slot.getStartTime() );
+        
+        return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getStartTime())));
+    }    
     
+    public List<Timeslot> getBookedTimeslots(){
+        List<Timeslot> list = ejbFacade.getBookedTimeslots();
+        System.out.println("Booked: " + list);
+        return list;
+    }    
     public List<WeekSlots> getSlots(){
         return slots;
     }
@@ -168,13 +230,6 @@ public class TimeslotController implements Serializable {
         DataTable dt = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("bookedForm:bookedTable");
         LOG.log(Level.INFO, "Test {0}", dt.getJQueryEvents());
     }
-    
-    /*public String hej(){
-        selectedRoom = timeslotHelper.getList().get(1).getMonday().getRoom();
-        System.out.println(selectedRoom);
-        return selectedRoom;
-    }
-    */
 
     private TimeslotFacade getFacade() {
         return ejbFacade;
