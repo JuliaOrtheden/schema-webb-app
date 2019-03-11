@@ -24,6 +24,7 @@ import javax.inject.Named;
 public class TimeslotHelper {
     
     
+
     public List<WeekSlots> createWeek(){
         List<WeekSlots> list = new ArrayList<>();
         Calendar now = Calendar.getInstance();

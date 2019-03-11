@@ -105,6 +105,7 @@ public class TimeslotController implements Serializable {
         }
        
         String room = slot.getRoom();
+        System.out.println(room);
         Timeslot timeslot = new Timeslot(date, time, room);
         timeslot.setDescription("hej");
         return timeslot;      

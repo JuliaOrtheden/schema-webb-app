@@ -6,7 +6,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui"
-      > 
+      xmlns:b="http://bootsfaces.net/ui"
+     > 
     <style type="text/css">
         .value {
             font-weight: bold;
@@ -17,18 +18,21 @@
     </h:head>
     <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" ></h:button>
     <h:form id="form">
-        <select id="choosenRoom" colMd="2" required="false" labelColMd="2">
-            <option value="Grupprum 1">Grupprum 1</option>
-            <option value="Grupprum 2">Grupprum 2</option>
-            <option value="Grupprum 3">Grupprum 3</option>
-            <option value="Motionshall">Motionshall</option>
-            <option value="Musikrum">Musikrum</option>
-        </select>
-        <h:commandLink action="#{timeslotController.hej()}" value="#{bundle.SearchByRoom}"/>
 
+        <b:formGroup>
+        <b:selectOneMenu value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2">
+                            <f:selectItem itemLabel="(Please select)" itemValue="" />
+                            <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
+                            <f:selectItem itemLabel="Grupprum 2" itemValue="Grupprum 2" />
+                            <f:selectItem itemLabel="Grupprum 3" itemValue="Grupprum 3"/>
+                            <f:selectItem itemLabel="Motionshall" itemValue="Motionshall"/>
+                            <f:selectItem itemLabel="Musikrum" itemValue="Musikrum"/>
+        </b:selectOneMenu>
+        </b:formGroup>
         <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     paginator="true" rows="24" style="margin-bottom:20px">
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                 paginator="true" rows="10" style="margin-bottom:20px">
+ 
             <f:facet name="header">
                 Boka ett jävla rum dåådå
             </f:facet>
@@ -40,9 +44,9 @@
                     <p:column headerText="This Year" />
                 </p:row>
             </p:columnGroup>
-
-            <p:column>
-                
+        
+      
+        </p:dataTable>
 
                 <p:commandButton update=":form:carDetail" oncomplete="PF('carDialog').show()" icon="pi pi-search" title="View">
                     <h:outputText value="Boka" styleClass="pi pi-search" style="margin:0 auto;"/>
@@ -104,6 +108,7 @@
 
         </p:dataTable>
 
+        
         <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
             <p:outputPanel id="carDetail" style="text-align:center;">
                 <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="label,value">
