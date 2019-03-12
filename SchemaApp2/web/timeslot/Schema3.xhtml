@@ -14,10 +14,12 @@
     }
     </style>
     <h:head>
-        
+        <h:outputStylesheet library="css" name="welcome.css" />
+        <ui:include src="../users/Header.xhtml" />
     </h:head>
     <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" ></h:button>
     <h:form id="form">
+         
         <b:formGroup>
             <b:selectOneMenu  id="select" value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2">
                             <f:selectItem itemLabel="(Please select)" itemValue="" />
@@ -120,8 +122,8 @@
         </p:outputPanel>
     </p:dialog>
       
-   
- 
+
+      
  
 </h:form>
 </html>
