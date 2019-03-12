@@ -175,13 +175,18 @@ public class TimeslotController implements Serializable {
     }
     
     public void bookTimeslot(){
-  
-        Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
-        timeslot.setDescription(selectedSlot.getDescription());
-        //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
-        getFacade().create(timeslot);
-        recreateModel();
-        selectedItemIndex = -1;
+        
+        try {
+            Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
+            timeslot.setDescription(selectedSlot.getDescription());
+            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+            getFacade().create(timeslot);
+            recreateModel();
+            selectedItemIndex = -1;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+
     }
     
     public Slot getSelectedSlot() {
