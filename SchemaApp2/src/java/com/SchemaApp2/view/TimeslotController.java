@@ -82,35 +82,6 @@ public class TimeslotController implements Serializable {
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
         
-        List<Timeslot> bookedList = getBookedTimeslots();
-        
-        for(WeekSlots weekSlot: slots){
-            if(!bookedList.isEmpty()){
-                for(Timeslot ts: bookedList){
-                    Slot mon = weekSlot.getMonday();
-                    Slot tue = weekSlot.getTuesday();
-                    Slot wed = weekSlot.getWednesday();
-                    Slot thu = weekSlot.getThursday();
-                    Slot fri = weekSlot.getFriday();
-                    if(compare(ts,mon)){
-                        mon.setBooked(true);
-                        System.out.println("Mon True");
-                    }else if(compare(ts,tue)){
-                        tue.setBooked(true);
-                         System.out.println("Tue True");
-                    }else if(compare(ts,wed)){
-                        wed.setBooked(true);
-                         System.out.println("Wed True");
-                    }else if(compare(ts,thu)){
-                        thu.setBooked(true);
-                         System.out.println("Thu True");
-                    }else if(compare(ts,fri)){
-                        fri.setBooked(true);
-                         System.out.println("Fri True");
-                    } 
-                }
-            }
-        }
         
     }
     public String newDateFormat(Date date){
@@ -135,9 +106,13 @@ public class TimeslotController implements Serializable {
         String timeslotTime = newTimeFormat(tpk.getTime());
         
         System.out.println("Timeslot values " + timeslotDate + " " + timeslotRoom + " " + timeslotTime);
-        System.out.println("Slot values " + slot.getDate() + " " + slot.getRoom() + " " + slot.getStartTime() );
+        System.out.println("Slot values " + slot.getDate() + " " + slot.getRoom() + " " + slot.getEndTime() );
         
-        return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getStartTime())));
+        System.out.println("Equal date" + timeslotDate.equals(slot.getDate()));
+        System.out.println("Equal time" + timeslotTime.equals(slot.getEndTime()));
+        System.out.println("Equal room" + timeslotRoom.equals(slot.getRoom()));
+        
+        return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getEndTime())));
     }    
     
     public List<Timeslot> getBookedTimeslots(){
@@ -214,6 +189,30 @@ public class TimeslotController implements Serializable {
         }
         */
         slots = timeslotHelper.reCreateWeek(room);
+         List<Timeslot> bookedList = getBookedTimeslots();
+        
+        for(WeekSlots weekSlot: slots){
+            if(!bookedList.isEmpty()){
+                for(Timeslot ts: bookedList){
+                    Slot mon = weekSlot.getMonday();
+                    Slot tue = weekSlot.getTuesday();
+                    Slot wed = weekSlot.getWednesday();
+                    Slot thu = weekSlot.getThursday();
+                    Slot fri = weekSlot.getFriday();
+                    if(compare(ts,mon)){
+                        mon.setBooked(true);
+                    }else if(compare(ts,tue)){
+                        tue.setBooked(true);
+                    }else if(compare(ts,wed)){
+                        wed.setBooked(true);
+                    }else if(compare(ts,thu)){
+                        thu.setBooked(true);
+                    }else if(compare(ts,fri)){
+                        fri.setBooked(true);
+                    } 
+                }
+            }
+        }
         //selectedRoom = room;
         //System.out.println(room);
         //recreateModel();
