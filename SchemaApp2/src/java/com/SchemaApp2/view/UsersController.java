@@ -86,7 +86,7 @@ public class UsersController implements Serializable {
         }
         return "WelcomePage";
     }
-
+    
     public String create() {
         try {
             getFacade().create(current);
@@ -113,6 +113,18 @@ public class UsersController implements Serializable {
             return null;
         }
     }
+     
+     public String logout(){
+         try{
+             FacesContext context = FacesContext.getCurrentInstance();
+             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+             session.setAttribute("user", null);
+             return "loggedOutTemplate";
+         }catch (Exception e){
+             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesfull logout"));
+         }
+         return null;
+     }
 
     public String prepareEdit() {
         current = (Users) getItems().getRowData();
