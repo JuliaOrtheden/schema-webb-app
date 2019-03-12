@@ -196,19 +196,14 @@ public class TimeslotController implements Serializable {
                     Slot fri = weekSlot.getFriday();
                     if(compare(ts,mon)){
                         mon.setBooked(true);
-                        System.out.println("Mon True");
                     }else if(compare(ts,tue)){
                         tue.setBooked(true);
-                         System.out.println("Tue True");
                     }else if(compare(ts,wed)){
                         wed.setBooked(true);
-                         System.out.println("Wed True");
                     }else if(compare(ts,thu)){
                         thu.setBooked(true);
-                         System.out.println("Thu True");
                     }else if(compare(ts,fri)){
                         fri.setBooked(true);
-                         System.out.println("Fri True");
                     } 
                 }
             }
