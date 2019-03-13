@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.SchemaApp2.model;
 
 import java.util.List;
@@ -12,10 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 
-/**
- *
- * @author juliaortheden
- */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {
 
@@ -31,8 +23,12 @@ public class UsersFacade extends AbstractFacade<Users> {
         super(Users.class);
     }
     
+    /**
+     * Compares the current user's cid and password with the database cid and password to enable login 
+     * @param user
+     * @return 
+     */
     public Users login(Users user){
-        //em.getTransaction().begin();
         TypedQuery<Users> query = em.createNamedQuery("Users.findByCidAndPassword",Users.class);
         query.setParameter("cid", user.getCid());
         query.setParameter("password", user.getPassword());

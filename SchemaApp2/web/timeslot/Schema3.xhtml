@@ -17,10 +17,12 @@
         <h:outputStylesheet library="css" name="welcome.css" />
         <ui:include src="../users/Header.xhtml" />
     </h:head>
+    <p:tooltip />
     <h:form id="form">
 
         <b:formGroup>
             <b:selectOneMenu  id="select" value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2" style="margin-top:25px">
+<<<<<<< HEAD
                 <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
                 <f:selectItem itemLabel="Grupprum 2" itemValue="Grupprum 2" />
                 <f:selectItem itemLabel="Grupprum 3" itemValue="Grupprum 3"/>
@@ -35,9 +37,91 @@
                      paginator="true" rows="24" style="background:white; margin: 20px;">
 
             <p:column style="width:100px; border-radius: none">
+=======
+                            <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
+                            <f:selectItem itemLabel="Grupprum 2" itemValue="Grupprum 2" />
+                            <f:selectItem itemLabel="Grupprum 3" itemValue="Grupprum 3"/>
+                            <f:selectItem itemLabel="Motionshallen" itemValue="Motionshallen"/>
+                            <f:selectItem itemLabel="Musikrummet" itemValue="Musikrummet"/>
+        </b:selectOneMenu>
+            <b:commandLink styleClass="s" value="#{bundle.Search}" action="#{timeslotController.updateWeek(timeslotController.selectedSlot
+                                                         .room)}"/>
+        </b:formGroup>
+        <p:messages id="messages" showDetail="true" closable="true" severity="info">
+        
+        </p:messages>
+    <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                 paginator="true" rows="24" style="background:white; margin: 20px;">
+ 
+        <p:column style="width:100px; border-radius: none">
+            <f:facet name="header">
+                <h:outputText value="Tid" />
+            </f:facet>
+            <h:outputText value="#{slot.monday.startTime}" styleClass="pi pi-search" style="margin:0 auto;"/>
+        </p:column>
+        <p:column style="border:none">
+                <f:facet name="header">
+                    <h:outputText value="Monday" />
+                </f:facet>
+             <p:commandButton disabled="#{slot.monday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="margin:10px; background-color: #E0E0E0">
+                 <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
+            </p:commandButton>
+            <h:outputText value="#{slot.monday.date}" />
+        </p:column>
+ 
+        <p:column >
+            <f:facet name="header">
+                <h:outputText value="Tuesday" />
+            </f:facet>
+            <p:commandButton disabled="#{slot.tuesday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
+                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                 <f:setPropertyActionListener value="#{slot.tuesday}" target="#{timeslotController.selectedSlot}" />
+            </p:commandButton>
+            <h:outputText value="#{slot.tuesday.date}" />
+        </p:column>
+ 
+        <p:column >
+            <f:facet name="header">
+                <h:outputText value="Wednesday" />
+            </f:facet>
+             <p:commandButton disabled="#{slot.wednesday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
+                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                 <f:setPropertyActionListener value="#{slot.wednesday}" target="#{timeslotController.selectedSlot}" />
+            </p:commandButton>
+            <h:outputText value="#{slot.wednesday.date}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Thursday" />
+            </f:facet>
+             <p:commandButton disabled="#{slot.thursday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
+                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                 <f:setPropertyActionListener value="#{slot.thursday}" target="#{timeslotController.selectedSlot}" />
+            </p:commandButton>
+            <h:outputText value="#{slot.thursday.date}" />
+        </p:column>
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Friday" />
+            </f:facet>
+             <p:commandButton disabled="#{slot.friday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
+                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                 <f:setPropertyActionListener value="#{slot.friday}" target="#{timeslotController.selectedSlot}" />
+            </p:commandButton>
+            <h:outputText value="#{slot.friday.date}" />
+        </p:column>
+    </p:dataTable>
+
+     <p:dialog header="Boka" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="value,value">
+>>>>>>> 9115913255e491c12d63ee803fb0662a084e70cb
                 <f:facet name="header">
                     <h:outputText value="Tid" />
                 </f:facet>
+<<<<<<< HEAD
                 <h:outputText value="#{slot.monday.startTime}" styleClass="pi pi-search" style="margin:0 auto;"/>
             </p:column>
             <p:column style="border:none" headerText="Måndag #{timeslotController.getHeader(0)}">
@@ -103,4 +187,31 @@
 
 
     </h:form>
+=======
+                 
+                <h:outputText value="Datum:" />
+                <h:outputText value="#{timeslotController.selectedSlot.date}" />
+ 
+ 
+                <h:outputText value="Starttid" />
+                <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
+                
+                
+                <h:outputText value="Rum" />
+                <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
+                 
+                <h:outputText value="Beskrivning"/>
+                <h:inputText value="#{timeslotController.selectedSlot.description}"/>
+                           
+                
+            </p:panelGrid>
+        </p:outputPanel>
+         <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}" styleClass="s"/>
+    </p:dialog>
+      
+
+      
+ 
+</h:form>
+>>>>>>> 9115913255e491c12d63ee803fb0662a084e70cb
 </html>

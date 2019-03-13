@@ -17,6 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Named("usersController")
@@ -87,17 +88,25 @@ public class UsersController implements Serializable {
         return "WelcomePage";
     }
     
+    /**
+     * Creates a new user
+     * @return 
+     */
     public String create() {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;
         }
     }
     
+     /**
+      * Uses http sessions to log a user in
+      * @return 
+      */
      public String login() {
         try {
             Users user = getFacade().login(current);
@@ -108,20 +117,27 @@ public class UsersController implements Serializable {
             session.setAttribute("user", user);
             return prepareWelcome(user);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("WrongUser"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("WrongUser"));
                    
             return null;
         }
     }
      
+     /**
+      * Invalidates a session to log a user out
+      * @return 
+      */
      public String logout(){
          try{
+             System.out.println("logout");
              FacesContext context = FacesContext.getCurrentInstance();
              HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-             session.setAttribute("user", null);
-             return "loggedOutTemplate";
+             context.getExternalContext().invalidateSession();
+             //session.invalidate();
+             System.out.println("logged out");
+             return "/users/Login";
          }catch (Exception e){
-             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesfull logout"));
+             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesful logout"));
          }
          return null;
      }
@@ -138,7 +154,7 @@ public class UsersController implements Serializable {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
             return "Profile";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;
         }
     }
@@ -170,7 +186,7 @@ public class UsersController implements Serializable {
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("CannotDelete"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("CannotDelete"));
         }
     }
 

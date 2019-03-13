@@ -24,7 +24,7 @@
                     page-length-menu="5,10,15"
                     page-length="5"
                     onpage="console.log(me); ajax:book.page()"
-                    searching="false"                
+                    searching="false" style="margin:auto"                
                   
             >
                 <b:dataTableColumn order="asc">
@@ -37,28 +37,36 @@
                 </b:dataTableColumn>
                 <b:dataTableColumn>
                     <f:facet name="header">
-                                <h:outputText value="Start Time"/>
+                                <h:outputText value="Starttid"/>
                             </f:facet>
                             <h:outputText value="#{b.timeslotPK.time}">
                                 <f:convertDateTime pattern="HH:mm:ss" />
                             </h:outputText>
                 </b:dataTableColumn>
-                <b:dataTableColumn value="#{b.timeslotPK.room}"/>
-                <b:dataTableColumn value="#{b.description}" />
-                <b:dataTableColumn label="Edit" orderable="false">
-                        <p:commandLink onclick="PF('bookedDialog').show()" value="Edit" 
+                <b:dataTableColumn>
+                            <f:facet name="header">
+                            <h:outputText value="Rum"/>
+                            </f:facet>
+                            <h:outputText value="#{b.timeslotPK.room}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                            <f:facet name="header">
+                            <h:outputText value="Beskrivning"/>
+                            </f:facet>
+                            <h:outputText value="#{b.description}"/>
+                </b:dataTableColumn>
+                <b:dataTableColumn label="Ändra" orderable="false">
+                        <p:commandLink onclick="PF('bookedDialog').show()" value="#{bundle.EditRoomTitle}" 
                                        action="#{timeslotController.prepareEdit2()}" update=":formid:bookDetail">
                         <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                         <f:setPropertyActionListener value="#{b}" target="#{timeslotController.selected}" />
                         </p:commandLink>
                 </b:dataTableColumn>
                 
-                <b:dataTableColumn label="Delete" orderable="false">
-                    <h:commandLink action="#{timeslotController.destroy}" value="#{bundle.ListTimeslotDestroyLink}"
-                                   />
-                    
+                <b:dataTableColumn label="Avboka" orderable="false">
+                    <h:commandLink action="#{timeslotController.destroy}" value="#{bundle.ListTimeslotDestroyLink}">
+                    </h:commandLink>
                 </b:dataTableColumn>
-
             </b:dataTable>
             </b:form>
         </b:row>
@@ -92,9 +100,9 @@
                  <h:outputText value="Beskrivning"/>
                  <h:inputText  value="#{timeslotController.selected.description}"/>
                  
-                 <h:commandLink value="Uppdatera" action="#{timeslotController.update()}"/>
             </p:panelGrid>
         </p:outputPanel>
+        <h:commandLink value="Uppdatera" action="#{timeslotController.update()}" styleClass="s" style="align-content:center"/>
         </p:dialog>
     </h:form>
     </ui:define>

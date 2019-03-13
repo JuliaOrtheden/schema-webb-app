@@ -8,10 +8,6 @@ package com.SchemaApp2.model;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author juliaortheden
- */
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;

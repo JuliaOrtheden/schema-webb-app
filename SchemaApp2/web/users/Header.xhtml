@@ -8,13 +8,16 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:link outcome="/users/Profile" value="Profile" styleClass="h"/>
-        <h:link outcome="/users/Login" value="Log out" styleClass="h"/>
+        <h:link outcome="/users/Profile" value="Profil" styleClass="h"/>
+        <h:form>
+        <p:commandLink action="#{usersController.logout}" value="Logga ut" styleClass="h"/>
+        </h:form>
         <h:link outcome="/timeslot/MyBookings" value="Mina Bokningar" styleClass="h"/>
     </h:body>
 </html>
