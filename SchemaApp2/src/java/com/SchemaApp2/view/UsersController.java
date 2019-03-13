@@ -17,6 +17,7 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Named("usersController")
@@ -116,10 +117,13 @@ public class UsersController implements Serializable {
      
      public String logout(){
          try{
+             System.out.println("logout");
              FacesContext context = FacesContext.getCurrentInstance();
              HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-             session.setAttribute("user", null);
-             return "loggedOutTemplate";
+             context.getExternalContext().invalidateSession();
+             //session.invalidate();
+             System.out.println("logged out");
+             return "/users/Login";
          }catch (Exception e){
              JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesful logout"));
          }

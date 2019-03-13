@@ -114,9 +114,10 @@
                 <h:outputText value="Beskrivning"/>
                 <h:inputText value="#{timeslotController.selectedSlot.description}"/>
              
-                <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
+                
             </p:panelGrid>
         </p:outputPanel>
+         <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}" styleClass="b"/>
     </p:dialog>
       
 

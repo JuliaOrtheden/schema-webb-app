@@ -24,7 +24,7 @@
                     page-length-menu="5,10,15"
                     page-length="5"
                     onpage="console.log(me); ajax:book.page()"
-                    searching="false"                
+                    searching="false" style="margin:auto"                
                   
             >
                 <b:dataTableColumn order="asc">
@@ -100,9 +100,10 @@
                  <h:outputText value="Beskrivning"/>
                  <h:inputText  value="#{timeslotController.selected.description}"/>
                  
-                 <h:commandLink value="Uppdatera" action="#{timeslotController.update()}"/>
+                 
             </p:panelGrid>
         </p:outputPanel>
+        <h:commandLink value="Uppdatera" action="#{timeslotController.update()}" styleClass="b" style="align-content:center"/>
         </p:dialog>
     </h:form>
     </ui:define>
