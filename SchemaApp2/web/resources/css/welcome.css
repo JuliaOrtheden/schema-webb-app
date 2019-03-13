@@ -11,7 +11,7 @@ and open the template in the editor.
 .m {
  text-decoration:none;
  padding:5px 10px;
- background:#4CAF50;
+ background:#3399ff;
  color:white;
  float:left;
     
@@ -26,7 +26,7 @@ and open the template in the editor.
  text-decoration:none;
  padding:5px 10px;
  background:white;
- color:#a2b3a1;
+ color:#3399ff;
  float:right;
     
 }
@@ -36,7 +36,7 @@ and open the template in the editor.
 }
 
 .b {
-  background-color: #4CAF50; /* Green */
+  background-color: #3399ff; /* Green */
   border: none;
   margin: 20px;
   color: white;
@@ -45,10 +45,29 @@ and open the template in the editor.
   text-decoration: none;
   display: inline-block;
   font-size: 24px;
+  border-radius: 10px;
 
 }
 
 .b:hover {
+  background-color: #a2b3a1; /* Green */
+  color: white;
+}
+.s {
+  background-color: #3399ff; /* Blue */
+  border: none;
+  margin: 20px;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 10px;
+
+}
+
+.s:hover {
   background-color: #a2b3a1; /* Green */
   color: white;
 }

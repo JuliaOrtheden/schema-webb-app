@@ -286,33 +286,6 @@ public class TimeslotController implements Serializable {
     }
 
     public String create() {
-        /*try {
-            System.out.println("Försöker 1");
-            current.getTimeslotPK().setRoom(current.getRoom1().getName());
-            System.out.println("Försöker 2");
-            Timeslot current2 = new Timeslot();
-            int num = 2;
-            short numShort = (short) num;
-            Room room = new Room("banan","Banan", numShort);
-            Users user = new Users("a", "a", "a", "a", "a", "a","a");
-            current2.setUsers(user);
-            current2.setDescription("hjkl");
-            TimeslotPK timeslotpk = new TimeslotPK();
-            Date date = new Date();
-            timeslotpk.setDate(date);
-            timeslotpk.setRoom("Musikrummet");
-            timeslotpk.setTime(date);
-            current2.setTimeslotPK(timeslotpk);
-            System.out.println("ojojojojoj");
-            getFacade().create(current);
-            System.out.println("Försöker 3");
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotCreated"));
-            System.out.println("Försöker 4");
-            return prepareCreate();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
-        }*/
         try {
 	            selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
 	            getFacade().create(selected);

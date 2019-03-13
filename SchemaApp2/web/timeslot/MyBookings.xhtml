@@ -45,7 +45,6 @@
                 </b:dataTableColumn>
                 <b:dataTableColumn value="#{b.timeslotPK.room}"/>
                 <b:dataTableColumn value="#{b.description}" />
-
                 <b:dataTableColumn label="Edit" orderable="false">
                         <p:commandLink onclick="PF('bookedDialog').show()" value="Edit" 
                                        action="#{timeslotController.prepareEdit2()}" update=":formid:bookDetail">
