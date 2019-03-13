@@ -45,9 +45,8 @@ public class Slot {
    
     
     
-    public Slot(String startTime, String endTime, String date, String room, boolean booked){
+    public Slot(String startTime, String date, String room, boolean booked){
         this.startTime = startTime;
-        this.endTime = endTime;
         this.date = date;
         this.room = room;
         this.booked = booked;

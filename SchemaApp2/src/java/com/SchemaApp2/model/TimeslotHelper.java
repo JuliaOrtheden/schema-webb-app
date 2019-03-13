@@ -7,6 +7,7 @@ package com.SchemaApp2.model;
 
 import com.SchemaApp2.view.TimeslotController;
 import java.io.Serializable;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -23,7 +24,6 @@ import javax.inject.Named;
 @ManagedBean
 @ApplicationScoped
 public class TimeslotHelper {
-    
 
     
     List<WeekSlots> list = new ArrayList<>();
@@ -35,38 +35,79 @@ public class TimeslotHelper {
 
     public List<WeekSlots> createWeek(){
         Calendar now = Calendar.getInstance();
-        
-        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-        int monday = now.get(Calendar.DATE)-dayOfWeek+2;
-        String [] times = new String[24];
-        String [] dates = new String[24];
-        for(int i = 0; i<24;i++){
-            if(i < 9){
-                times[i] = "0" + i + ":00:00";
-                dates[i] = "0"+(now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR);
-            }else{
-                times[i] = i + ":00:00";
-                dates[i] = (now.get(Calendar.MONTH) + 1) + "/" + now.get(Calendar.YEAR);
-            }
-        }
-        
-      
-        
-            for (int i = 0; i < 24; i++){
-                
-                list.add(new WeekSlots(
-                new Slot((i+ ":00:00"), times[i], monday + "/" + dates[i], "Grupprum 1", false),
-                new Slot((i+":00:00"), times[i], monday+1 + "/" + dates[i], "Grupprum 1", false),
-                new Slot((i+ ":00:00"),times[i], monday+2 + "/" + dates[i], "Grupprum 1", false),
-                new Slot((i+ ":00:00"),times[i], monday+3 + "/" + dates[i], "Grupprum 1", false),
-                new Slot((i+ ":00:00"),times[i], monday+4 + "/" + dates[i], "Grupprum 1", false),
-                new Slot((i+ ":00:00"), times[i], monday+5 + "/" + dates[i], "Grupprum 1", false),
-                new Slot((i+ ":00:00"),times[i], monday+6 + "/" + dates[i], "Grupprum 1", false)));
-            
 
-                
+        int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+        int monday = now.get(Calendar.DATE) - dayOfWeek + 2;
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH);
+
+        YearMonth yearMonthObject = YearMonth.of(year, month + 1);
+        int daysInMonth = yearMonthObject.lengthOfMonth();
+        int dayShift = 0;
+
+        int weekShift = 0;
+        for (int k = 0; k < 10; k++) {
+            dayShift = 0;
+            int[] weekdays = new int[7];
+            int[] monthArr = new int[7];
+            for (int j = 0; j < 7; j++) {
+                if (monday + dayShift + 7 * weekShift <= daysInMonth) {
+                    weekdays[j] = monday + dayShift + 7 * weekShift;
+                    monthArr[j] = month;
+                    dayShift += 1;
+
+                } else {
+                    weekShift = 0;
+                    monday = -dayShift+1;
+                    
+                    month += 1;
+                    if (month > 11) {
+                        year += 1;
+                        month = 0;
+                    }
+                    yearMonthObject = YearMonth.of(year, month + 1);
+                    daysInMonth = yearMonthObject.lengthOfMonth();
+                    weekdays[j] = monday + dayShift + 7 * weekShift;
+                    monthArr[j] = month;
+                    dayShift += 1;
+
+                }
             }
-         return list;
+            dayShift = 0;
+            
+            
+            String [] times = new String[24];
+            for(int i = 0; i<24;i++){
+                if(i < 9){
+                    times[i] = "0" + i + ":00:00";
+                }else{
+                times[i] = i + ":00:00";
+                }
+            }
+            String[] monthStrings = new String[7];
+            for ( int i = 0; i < monthArr.length; i++){
+                if (monthArr[i] < 9){
+                    monthStrings[i] = "0" + (monthArr[i]+1);
+                } else {
+                    monthStrings[i] = "" + (monthArr[i]+1);
+                }
+            }
+            
+            
+            for (int i = 0; i < 24; i++) {
+                List<Slot> week = new ArrayList<>();
+                for (int j = 0; j < 7; j++) {
+                    week.add(new Slot(times[i], weekdays[j] + "/" + monthStrings[j] + "/" + year, "Grupprum 1", false));
+                }
+                list.add(new WeekSlots(week.get(0), week.get(1), week.get(2),
+                        week.get(3), week.get(4), week.get(5), week.get(6)));
+ 
+
+            }
+            weekShift += 1;
+
+        }
+        return list;
     }
     
     public List<WeekSlots> reCreateWeek(String room){
