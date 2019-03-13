@@ -93,7 +93,7 @@ public class UsersController implements Serializable {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class UsersController implements Serializable {
             session.setAttribute("user", user);
             return prepareWelcome(user);
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("WrongUser"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("WrongUser"));
                    
             return null;
         }
@@ -121,7 +121,7 @@ public class UsersController implements Serializable {
              session.setAttribute("user", null);
              return "loggedOutTemplate";
          }catch (Exception e){
-             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesfull logout"));
+             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesful logout"));
          }
          return null;
      }
@@ -138,7 +138,7 @@ public class UsersController implements Serializable {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
             return "Profile";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;
         }
     }
@@ -170,7 +170,7 @@ public class UsersController implements Serializable {
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("CannotDelete"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("CannotDelete"));
         }
     }
 

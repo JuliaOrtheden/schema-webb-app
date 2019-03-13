@@ -46,7 +46,7 @@ public class TimeslotHelper {
         int dayShift = 0;
 
         int weekShift = 0;
-        for (int k = 0; k < 10; k++) {
+        for (int k = 0; k < 2; k++) {
             dayShift = 0;
             int[] weekdays = new int[7];
             int[] monthArr = new int[7];
@@ -78,7 +78,7 @@ public class TimeslotHelper {
             
             String [] times = new String[24];
             for(int i = 0; i<24;i++){
-                if(i < 9){
+                if(i < 10){
                     times[i] = "0" + i + ":00:00";
                 }else{
                 times[i] = i + ":00:00";
@@ -105,6 +105,7 @@ public class TimeslotHelper {
 
             }
             weekShift += 1;
+          
 
         }
         return list;

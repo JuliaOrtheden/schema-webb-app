@@ -27,7 +27,7 @@
                             <f:selectItem itemLabel="Motionshallen" itemValue="Motionshallen"/>
                             <f:selectItem itemLabel="Musikrummet" itemValue="Musikrummet"/>
         </b:selectOneMenu>
-            <b:commandLink styleClass="s" value="Update Room" action="#{timeslotController.updateWeek(timeslotController.selectedSlot
+            <b:commandLink styleClass="s" value="#{bundle.Search}" action="#{timeslotController.updateWeek(timeslotController.selectedSlot
                                                          .room)}"/>
         </b:formGroup>
     <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
