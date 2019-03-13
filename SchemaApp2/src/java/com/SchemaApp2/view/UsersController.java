@@ -88,6 +88,10 @@ public class UsersController implements Serializable {
         return "WelcomePage";
     }
     
+    /**
+     * Creates a new user
+     * @return 
+     */
     public String create() {
         try {
             getFacade().create(current);
@@ -99,6 +103,10 @@ public class UsersController implements Serializable {
         }
     }
     
+     /**
+      * Uses http sessions to log a user in
+      * @return 
+      */
      public String login() {
         try {
             Users user = getFacade().login(current);
@@ -115,6 +123,10 @@ public class UsersController implements Serializable {
         }
     }
      
+     /**
+      * Invalidates a session to log a user out
+      * @return 
+      */
      public String logout(){
          try{
              System.out.println("logout");

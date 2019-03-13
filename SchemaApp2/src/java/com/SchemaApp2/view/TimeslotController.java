@@ -1,6 +1,5 @@
 package com.SchemaApp2.view;
 
-import com.SchemaApp2.model.Room;
 import com.SchemaApp2.model.Slot;
 import com.SchemaApp2.model.Timeslot;
 import com.SchemaApp2.view.util.JsfUtil;
@@ -12,29 +11,23 @@ import com.SchemaApp2.model.Users;
 import com.SchemaApp2.model.WeekSlots;
 
 import java.io.Serializable;
-import static java.lang.System.console;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.Startup;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.ManagedProperty;
-import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -42,7 +35,6 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.persistence.Convert;
 import javax.servlet.http.HttpSession;
 import net.bootsfaces.component.dataTable.DataTable;
 
@@ -58,26 +50,23 @@ public class TimeslotController implements Serializable {
     private com.SchemaApp2.model.TimeslotFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private String selectedRoom;
-    private List<Slot> bookedslots = new ArrayList<>();
-    private List<Timeslot> timeslots = new ArrayList<Timeslot>();
     private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
 
+    /**
+     * TimeslotController is responsible for connecting the bookings to the data base. 
+     */
 
     public TimeslotController() {
     }
-    
-    public void getTimeSlotByUser(Users user){
-        
-        List<Timeslot> list = ejbFacade.filterTimeslotByUser(user);
-        items.setWrappedData(list);
-        
-    }
+       
     private List<WeekSlots> slots;
     
     @ManagedProperty("#{timeslotHelper}")
     private TimeslotHelper timeslotHelper;
     
+    /**
+     * Initializes all the time slots that is available to book
+     */
     @PostConstruct
     public void init() {
         timeslotHelper = new TimeslotHelper();
@@ -85,6 +74,10 @@ public class TimeslotController implements Serializable {
         slots = timeslotHelper.createWeek();
    
     }
+    
+    /**
+     * Reformats the date to work with the data base
+     */
     public String newDateFormat(Date date){
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -92,6 +85,9 @@ public class TimeslotController implements Serializable {
         String dateString = simpleDateFormat.format(date);
         return dateString;
     }
+    /**
+     * Reformats the time to work with the data base
+     */
     public String newTimeFormat(Date time){
         String pattern = "HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -99,7 +95,24 @@ public class TimeslotController implements Serializable {
         String timeString = simpleDateFormat.format(time);
         return timeString;
     }
+    
+    /**
+     * Gets all bookings for a user
+     * @param user 
+     */
+    public void getTimeSlotByUser(Users user){
         
+        List<Timeslot> list = ejbFacade.filterTimeslotByUser(user);
+        items.setWrappedData(list);
+        
+    }
+       
+    /**
+     * Compares our model of the bookings, the "slots" with the time slots from the database to mark which are booked
+     * @param timeslot
+     * @param slot
+     * @return 
+     */
     public boolean compare(Timeslot timeslot, Slot slot){
         TimeslotPK tpk = timeslot.getTimeslotPK();
         String timeslotDate = newDateFormat(tpk.getDate());
@@ -116,17 +129,29 @@ public class TimeslotController implements Serializable {
         return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getStartTime())));
     }    
     
+    /**
+     * Gets all time slots that are booked
+     * @return 
+     */
     public List<Timeslot> getBookedTimeslots(){
         List<Timeslot> list = ejbFacade.getBookedTimeslots();
         System.out.println("Booked: " + list);
         return list;
-    }    
+    } 
+    
+    /**
+     * Gets all time slots
+     * @return 
+     */
     public List<WeekSlots> getSlots(){
         return slots;
     }
-   /* public List<Timeslot> filter(){
-        
-    }*/
+ 
+    /**
+     * Converts a slot to a time slot to enable data base insertion
+     * @param slot
+     * @return 
+     */
     public Timeslot convertSlotToTimeslot(Slot slot){
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
@@ -150,17 +175,19 @@ public class TimeslotController implements Serializable {
         return timeslot;      
     }
     
+    /**
+     * Books a time slot by first converting the slot to a time slot and then 
+     */
     public void bookTimeslot(){
         
         try {
             Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
             timeslot.setDescription(selectedSlot.getDescription());
-            bookedslots.add(selectedSlot);
+            //bookedslots.add(selectedSlot);
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             timeslot.setUsers((Users)session.getAttribute("user"));
-            
-            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+
             getFacade().create(timeslot);
             updateWeek(timeslot.getTimeslotPK().getRoom());
             recreateModel();
@@ -183,6 +210,11 @@ public class TimeslotController implements Serializable {
     public void setSelectedSlot(Slot slot){
         selectedSlot = slot;
     }
+    
+    /**
+     * Updates the weeks to mark the booked time slots
+     * @param room 
+     */
     
     public void updateWeek(String room){
         slots = timeslotHelper.reCreateWeek(room);
@@ -266,10 +298,14 @@ public class TimeslotController implements Serializable {
     public String prepareCreate() {
         selected = new Timeslot();
         selected.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
-        timeslots.add(selected);
         selectedItemIndex = -1;
         return "Create";
     }
+    
+    /**
+     * Creates a new booking
+     * @return 
+     */
 
     public String create() {
         try {
@@ -299,7 +335,6 @@ public class TimeslotController implements Serializable {
 
     public String update() {
         try {
-            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
             getFacade().edit(selected);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotUpdated"));
             return "MyBookings";
@@ -363,15 +398,6 @@ public class TimeslotController implements Serializable {
         }
         return items;
     }
-    
-    public List<Timeslot> getTimeSlots(){
-        return timeslots;
-    } 
-    
-    public List<Slot> getBookedSlots(){
-        System.out.println(bookedslots.size());
-        return bookedslots;
-    }
 
     public DataModel getItemsByUser(Users user){
         DataModel allItems = getItems();
@@ -412,29 +438,6 @@ public class TimeslotController implements Serializable {
         return dates;
     }
     
-    
-    public List<Timeslot> todoList(){
-        List<Timeslot> list = new ArrayList<>();
-        Date date = new Date();
-        list.add(new Timeslot(new TimeslotPK(date, date, "Grupprum 1")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(date, date, "Grupprum 1")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 2")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        list.add(new Timeslot(new TimeslotPK(new Date(), new Date(), "Grupprum 3")));
-        return list;
-    }
-
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
