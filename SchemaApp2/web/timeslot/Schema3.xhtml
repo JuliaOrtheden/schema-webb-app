@@ -17,7 +17,6 @@
         <h:outputStylesheet library="css" name="welcome.css" />
         <ui:include src="../users/Header.xhtml" />
     </h:head>
-    <h:button outcome="/timeslot/List" value="Mina bokningar" styleClass="b" ></h:button>
     <h:form id="form">
          
         <b:formGroup>
@@ -111,11 +110,11 @@
                 <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
                 
                 
-                 <h:outputText value="Room" />
-                 <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
+                <h:outputText value="Room" />
+                <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
                  
-                 <h:outputText value="Beskrivning"/>
-                 <h:inputText value="#{timeslotController.selectedSlot.description}"/>
+                <h:outputText value="Beskrivning"/>
+                <h:inputText value="#{timeslotController.selectedSlot.description}"/>
              
                 <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}"/>
             </p:panelGrid>

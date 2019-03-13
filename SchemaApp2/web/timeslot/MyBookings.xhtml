@@ -14,37 +14,49 @@
         </ui:define>
         <ui:define name="body">
             <ui:param name="user" value="#{user}" />
-            
             <b:row>
             <b:form id="bookedForm">
             <b:dataTable
                     id="bookedTable"
                     widgetVar="me"
-                    var="b" value="#{timeslotController.items}" span="6"
+                    var="b" value="#{timeslotController.getItemsByUser(user)}" span="6"
                     striped="true" 
                     page-length-menu="5,10,15"
                     page-length="5"
                     onpage="console.log(me); ajax:book.page()"
-                    searching="false"                   
+                    searching="false"                
                   
             >
-                <b:dataTableColumn value="#{b.timeslotPK.date}" order="asc"/>
-                <b:dataTableColumn value="#{b.timeslotPK.time}"/>
+                <b:dataTableColumn order="asc">
+                    <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTimeslotTitle_timeslotPK_date}"/>
+                            </f:facet>
+                            <h:outputText value="#{b.timeslotPK.date}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                </b:dataTableColumn>
+                <b:dataTableColumn>
+                    <f:facet name="header">
+                                <h:outputText value="Start Time"/>
+                            </f:facet>
+                            <h:outputText value="#{b.timeslotPK.time}">
+                                <f:convertDateTime pattern="HH:mm:ss" />
+                            </h:outputText>
+                </b:dataTableColumn>
                 <b:dataTableColumn value="#{b.timeslotPK.room}"/>
-                <b:dataTableColumn value="#{b.description}"/>
-                <b:dataTableColumn value="#{b.users}"/>
+                <b:dataTableColumn value="#{b.description}" />
 
                 <b:dataTableColumn label="Edit" orderable="false">
-                        <h:commandLink onclick="$('.formValidationModalClass').modal('show')" value="Edit"
-                                       actionListener="#{timeslotController.prepareEdit2}"
-                                       />
+                        <p:commandLink onclick="PF('bookedDialog').show()" value="Edit" 
+                                       action="#{timeslotController.prepareEdit2()}" update=":formid:bookDetail">
+                        <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                        <f:setPropertyActionListener value="#{b}" target="#{timeslotController.selected}" />
+                        </p:commandLink>
                 </b:dataTableColumn>
                 
-                
-                  
                 <b:dataTableColumn label="Delete" orderable="false">
-                    <h:commandLink actionListener="#{timeslotController.destroy()}" value="#{bundle.ListTimeslotDestroyLink}"
-                                     action="/timeslot/MyBookings"/>
+                    <h:commandLink action="#{timeslotController.destroy}" value="#{bundle.ListTimeslotDestroyLink}"
+                                   />
                     
                 </b:dataTableColumn>
 
@@ -53,53 +65,39 @@
         </b:row>
             
             <h:body>
-                <h:button outcome="/timeslot/Schema2" value="Boka" styleClass="b" />
+                <h:button outcome="/timeslot/Schema3" value="Boka" styleClass="b" />
             </h:body>
-            
-            
-            
-            <b:modal id="Details" title="Mina Bokningar" styleClass="formValidationModalClass"
-                 closable="false"
-                 closeOnEscape="true">
-            <b:form>
-                <b:row >
-                <b:column span="12">
-                    <h2>Edit</h2>
-                </b:column>
-            </b:row>
-            <b:row>
-                <b:column span="2">
-                    <h:outputLabel value="Date" />
-                </b:column>
-                <b:inputText value="#{timeslotController.selected.timeslotPK.date}" size="15" span="2" 
-                             />
-            </b:row>
-            <b:row>
-                <b:column span="2" >
-                    <h:outputLabel value="Time" />
-                </b:column>
-                <b:inputText value="#{timeslotController.selected.timeslotPK.time}" size="15" span="2" 
-                             />
-            </b:row>
-            <b:row>
-                <b:column span="2">
-                    <h:outputLabel value="Room" />
-                </b:column>
-                <b:inputText value="#{timeslotController.selected.timeslotPK.room}" size="15" span="2" 
-                             />
-            </b:row>
-                <b:row>
-                <b:commandButton value="Done"  look="primary" span="2"
-                                 actionListener="#{timeslotController.update}" action="/timeslot/MyBookings"/>
-                <b:commandButton value="Cancel"  look="info" span="2"
-                                 action="/timeslot/MyBookings" immediate="true"/>
-            </b:row>
-            
-            </b:form>
-            </b:modal>
-            
-    
-        </ui:define>
-
+            <h:form id="formid">
+    <p:dialog header="Boka" widgetVar="bookedDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+              >
+        <p:outputPanel id="bookDetail" style="text-align:center;">
+            <p:panelGrid columns="2" rendered="#{not empty timeslotController.selected}" columnClasses="value,value">
+                <f:facet name="header">
+                </f:facet>
+                 
+                <h:outputText value="Date" />
+                <h:outputText value="#{timeslotController.selected.timeslotPK.date}" >
+                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                </h:outputText>
+ 
+ 
+                <h:outputText value="StartTime" />
+                <h:outputText value="#{timeslotController.selected.timeslotPK.time}">
+                    <f:convertDateTime pattern="HH:mm:ss" />
+                </h:outputText>
+                
+                
+                 <h:outputText value="Room" />
+                 <h:outputText value= "#{timeslotController.selected.timeslotPK.room}"/>
+                 
+                 <h:outputText value="Beskrivning"/>
+                 <h:inputText  value="#{timeslotController.selected.description}"/>
+                 
+                 <h:commandLink value="Uppdatera" action="#{timeslotController.update()}"/>
+            </p:panelGrid>
+        </p:outputPanel>
+        </p:dialog>
+    </h:form>
+    </ui:define>
     </ui:composition>
 </html>
