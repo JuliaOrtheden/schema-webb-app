@@ -19,7 +19,7 @@
             <b:dataTable
                     id="bookedTable"
                     widgetVar="me"
-                    var="b" value="#{timeslotController.items}" span="6"
+                    var="b" value="#{timeslotController.getItemsByUser(user)}" span="6"
                     striped="true" 
                     page-length-menu="5,10,15"
                     page-length="5"
