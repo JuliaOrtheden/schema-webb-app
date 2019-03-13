@@ -28,6 +28,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.ManagedProperty;
+import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -187,14 +189,15 @@ public class TimeslotController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             timeslot.setUsers((Users)session.getAttribute("user"));
-
             getFacade().create(timeslot);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Lyckad Bokning!"));
             updateWeek(timeslot.getTimeslotPK().getRoom());
             recreateModel();
             
             selectedItemIndex = -1;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+
         }
 
     }

@@ -17,8 +17,9 @@
         <h:outputStylesheet library="css" name="welcome.css" />
         <ui:include src="../users/Header.xhtml" />
     </h:head>
+    <p:tooltip />
     <h:form id="form">
-         
+
         <b:formGroup>
             <b:selectOneMenu  id="select" value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2" style="margin-top:25px">
                             <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
@@ -30,6 +31,9 @@
             <b:commandLink styleClass="s" value="#{bundle.Search}" action="#{timeslotController.updateWeek(timeslotController.selectedSlot
                                                          .room)}"/>
         </b:formGroup>
+        <p:messages id="messages" showDetail="true" closable="true" severity="info">
+        
+        </p:messages>
     <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                  paginator="true" rows="24" style="background:white; margin: 20px;">
@@ -113,11 +117,11 @@
                  
                 <h:outputText value="Beskrivning"/>
                 <h:inputText value="#{timeslotController.selectedSlot.description}"/>
-             
+                           
                 
             </p:panelGrid>
         </p:outputPanel>
-         <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}" styleClass="b"/>
+         <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}" styleClass="s"/>
     </p:dialog>
       
 
