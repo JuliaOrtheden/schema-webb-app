@@ -43,6 +43,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.persistence.Convert;
+import javax.servlet.http.HttpSession;
 import net.bootsfaces.component.dataTable.DataTable;
 
 @Named("timeslotController")
@@ -57,6 +58,8 @@ public class TimeslotController implements Serializable {
     private com.SchemaApp2.model.TimeslotFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String selectedRoom;
+    private List<Slot> bookedslots = new ArrayList<>();
     private List<Timeslot> timeslots = new ArrayList<Timeslot>();
     private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
 
@@ -81,35 +84,6 @@ public class TimeslotController implements Serializable {
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
         
-        List<Timeslot> bookedList = getBookedTimeslots();
-        
-        for(WeekSlots weekSlot: slots){
-            if(!bookedList.isEmpty()){
-                for(Timeslot ts: bookedList){
-                    Slot mon = weekSlot.getMonday();
-                    Slot tue = weekSlot.getTuesday();
-                    Slot wed = weekSlot.getWednesday();
-                    Slot thu = weekSlot.getThursday();
-                    Slot fri = weekSlot.getFriday();
-                    if(compare(ts,mon)){
-                        mon.setBooked(true);
-                        System.out.println("Mon True");
-                    }else if(compare(ts,tue)){
-                        tue.setBooked(true);
-                         System.out.println("Tue True");
-                    }else if(compare(ts,wed)){
-                        wed.setBooked(true);
-                         System.out.println("Wed True");
-                    }else if(compare(ts,thu)){
-                        thu.setBooked(true);
-                         System.out.println("Thu True");
-                    }else if(compare(ts,fri)){
-                        fri.setBooked(true);
-                         System.out.println("Fri True");
-                    } 
-                }
-            }
-        }
         
     }
     public String newDateFormat(Date date){
@@ -135,6 +109,10 @@ public class TimeslotController implements Serializable {
         
         System.out.println("Timeslot values " + timeslotDate + " " + timeslotRoom + " " + timeslotTime);
         System.out.println("Slot values " + slot.getDate() + " " + slot.getRoom() + " " + slot.getStartTime() );
+        
+        System.out.println("Equal date" + timeslotDate.equals(slot.getDate()));
+        System.out.println("Equal time" + timeslotTime.equals(slot.getStartTime()));
+        System.out.println("Equal room" + timeslotRoom.equals(slot.getRoom()));
         
         return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getStartTime())));
     }    
@@ -174,12 +152,24 @@ public class TimeslotController implements Serializable {
     }
     
     public void bookTimeslot(){
-  
-        Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
-        //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
-        getFacade().create(timeslot);
-        recreateModel();
-        selectedItemIndex = -1;
+        
+        try {
+            Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
+            timeslot.setDescription(selectedSlot.getDescription());
+            bookedslots.add(selectedSlot);
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+            timeslot.setUsers((Users)session.getAttribute("user"));
+            System.out.println((Users)session.getAttribute("users"));
+            
+            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+            getFacade().create(timeslot);
+            recreateModel();
+            selectedItemIndex = -1;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+
     }
     
     public Slot getSelectedSlot() {
@@ -192,6 +182,48 @@ public class TimeslotController implements Serializable {
     
     public void setSelectedSlot(Slot slot){
         selectedSlot = slot;
+    }
+    
+    public void updateWeek(String room){
+        /*for (int i = 0; i < (5*24); i++) {
+            slots.get(i).getMonday().setRoom(room);
+            slots.get(i).getTuesday().setRoom(room);
+            slots.get(i).getWednesday().setRoom(room);
+            slots.get(i).getThursday().setRoom(room);
+            slots.get(i).getFriday().setRoom(room);
+            slots.get(i).getSaturday().setRoom(room);
+            slots.get(i).getSunday().setRoom(room);
+            
+        }
+        */
+        slots = timeslotHelper.reCreateWeek(room);
+         List<Timeslot> bookedList = getBookedTimeslots();
+        
+        for(WeekSlots weekSlot: slots){
+            if(!bookedList.isEmpty()){
+                for(Timeslot ts: bookedList){
+                    Slot mon = weekSlot.getMonday();
+                    Slot tue = weekSlot.getTuesday();
+                    Slot wed = weekSlot.getWednesday();
+                    Slot thu = weekSlot.getThursday();
+                    Slot fri = weekSlot.getFriday();
+                    if(compare(ts,mon)){
+                        mon.setBooked(true);
+                    }else if(compare(ts,tue)){
+                        tue.setBooked(true);
+                    }else if(compare(ts,wed)){
+                        wed.setBooked(true);
+                    }else if(compare(ts,thu)){
+                        thu.setBooked(true);
+                    }else if(compare(ts,fri)){
+                        fri.setBooked(true);
+                    } 
+                }
+            }
+        }
+        //selectedRoom = room;
+        //System.out.println(room);
+        //recreateModel();
     }
     
     public Timeslot getSelected() {
@@ -211,7 +243,6 @@ public class TimeslotController implements Serializable {
         DataTable dt = (DataTable) FacesContext.getCurrentInstance().getViewRoot().findComponent("bookedForm:bookedTable");
         LOG.log(Level.INFO, "Test {0}", dt.getJQueryEvents());
     }
-  
 
     private TimeslotFacade getFacade() {
         return ejbFacade;
@@ -297,27 +328,28 @@ public class TimeslotController implements Serializable {
     public String prepareEdit() {
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        System.out.println(selected);
         return "Edit";
     }
     
-    public String prepareEdit2(){
+    public void prepareEdit2(){
+        System.out.println(selected);
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "MyBookings";
     }
 
     public String update() {
         try {
-            selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
             getFacade().edit(selected);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("TimeslotUpdated"));
-            return "View";
+            return "MyBookings";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
     }
-
+      
     public String destroy() {
         System.out.println("destroy");
         selected = (Timeslot) getItems().getRowData();
@@ -325,7 +357,7 @@ public class TimeslotController implements Serializable {
         performDestroy();
         recreatePagination();
         recreateModel();
-        return "List";
+        return "MyBookings";
     }
 
     public String destroyAndView() {
@@ -376,6 +408,11 @@ public class TimeslotController implements Serializable {
     public List<Timeslot> getTimeSlots(){
         return timeslots;
     } 
+    
+    public List<Slot> getBookedSlots(){
+        System.out.println(bookedslots.size());
+        return bookedslots;
+    }
 
     public DataModel getItemsByUser(Users user){
         DataModel allItems = getItems();

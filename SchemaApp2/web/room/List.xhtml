@@ -42,7 +42,6 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{roomController.prepareView}" value="#{bundle.ListRoomViewLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{roomController.prepareEdit}" value="#{bundle.ListRoomEditLink}"/>
                             <h:outputText value=" "/>
@@ -53,8 +52,6 @@
                 <br />
                 <h:commandLink action="#{roomController.prepareCreate}" value="#{bundle.ListRoomCreateLink}"/>
                 <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ListRoomIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

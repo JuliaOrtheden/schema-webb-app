@@ -14,6 +14,9 @@ public class Slot {
     public String getStartTime() {
         return startTime;
     }
+    public String getEndTime() {
+        return endTime;
+    }
 
 
     public String getDate() {
@@ -27,12 +30,19 @@ public class Slot {
     public boolean getBooked(){
         return booked;
     }
+    
+    public String getDescription(){
+        return description;
+    }
 
     
     private String startTime;
+    private String endTime;
     private String date;
     private String room;
     private boolean booked;
+    private String description;
+   
     
     
     public Slot(String startTime, String date, String room, boolean booked){
@@ -48,6 +58,10 @@ public class Slot {
         this.startTime = time;
     }
      
+    public void setEndTime(String time){
+        this.endTime = time;
+    }
+     
     public void setBooked(boolean booked){
         this.booked = booked;
     }
@@ -60,6 +74,10 @@ public class Slot {
     public void setRoom(String room) {
         this.room = room;
     }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
     
 
     
