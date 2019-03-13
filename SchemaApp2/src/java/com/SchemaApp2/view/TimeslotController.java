@@ -84,8 +84,7 @@ public class TimeslotController implements Serializable {
         timeslotHelper = new TimeslotHelper();
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
-        
-        
+   
     }
     public String newDateFormat(Date date){
         String pattern = "dd/MM/yyyy";
@@ -161,11 +160,19 @@ public class TimeslotController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             timeslot.setUsers((Users)session.getAttribute("user"));
+<<<<<<< HEAD
             System.out.println((Users)session.getAttribute("users"));
             //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
             getFacade().create(timeslot);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Lyckad Bokning!"));
+=======
+            
+            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
+            getFacade().create(timeslot);
+            updateWeek(timeslot.getTimeslotPK().getRoom());
+>>>>>>> 821a15a6b3275900b7d8fb3dd577d339e3a190ce
             recreateModel();
+            
             selectedItemIndex = -1;
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -187,17 +194,6 @@ public class TimeslotController implements Serializable {
     }
     
     public void updateWeek(String room){
-        /*for (int i = 0; i < (5*24); i++) {
-            slots.get(i).getMonday().setRoom(room);
-            slots.get(i).getTuesday().setRoom(room);
-            slots.get(i).getWednesday().setRoom(room);
-            slots.get(i).getThursday().setRoom(room);
-            slots.get(i).getFriday().setRoom(room);
-            slots.get(i).getSaturday().setRoom(room);
-            slots.get(i).getSunday().setRoom(room);
-            
-        }
-        */
         slots = timeslotHelper.reCreateWeek(room);
          List<Timeslot> bookedList = getBookedTimeslots();
         
@@ -223,9 +219,6 @@ public class TimeslotController implements Serializable {
                 }
             }
         }
-        //selectedRoom = room;
-        //System.out.println(room);
-        //recreateModel();
     }
     
     public Timeslot getSelected() {

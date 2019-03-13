@@ -30,7 +30,8 @@
                     <h:inputHidden id="usertype" value="student"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" styleClass="s" />
+                <h:commandLink action="#{usersController.create}" value="#{bundle.Save}" styleClass="s" />
+                <h:link outcome="/users/Login" value="#{bundle.Cancel}" styleClass="s" />
                 <br />
                 <br />
              
