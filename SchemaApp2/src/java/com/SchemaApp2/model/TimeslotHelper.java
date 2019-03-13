@@ -46,7 +46,7 @@ public class TimeslotHelper {
         int dayShift = 0;
 
         int weekShift = 0;
-        for (int k = 0; k < 10; k++) {
+        for (int k = 0; k < 3; k++) {
             dayShift = 0;
             int[] weekdays = new int[7];
             int[] monthArr = new int[7];

@@ -62,7 +62,7 @@ public class TimeslotController implements Serializable {
     private List<Slot> bookedslots = new ArrayList<>();
     private List<Timeslot> timeslots = new ArrayList<Timeslot>();
     private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
-
+    private String[] header;
 
     public TimeslotController() {
     }
@@ -81,11 +81,29 @@ public class TimeslotController implements Serializable {
     @PostConstruct
     public void init() {
         timeslotHelper = new TimeslotHelper();
+        header = new String[5];
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
-        
-        
+        System.out.println(slots.get(0).getMonday().getDate());
+        System.out.println(slots.get(0).getTuesday().getDate());
+        this.setHeader(slots.get(0).getMonday().getDate(), 0);
+        this.setHeader(slots.get(0).getTuesday().getDate(), 1);
+        this.setHeader(slots.get(0).getWednesday().getDate(), 2);
+        this.setHeader(slots.get(0).getThursday().getDate(), 3);
+        this.setHeader(slots.get(0).getFriday().getDate(), 4);
     }
+    
+    
+    
+    public String getHeader(int i){
+        return header[i];
+    }
+    
+    public void setHeader(String header, int i){
+        this.header[i] = header;
+        System.out.println(header +  i +  "OOOOMMMMMGGG");
+    }
+    
     public String newDateFormat(Date date){
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
