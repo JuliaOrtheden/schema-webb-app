@@ -127,19 +127,20 @@ public class UsersController implements Serializable {
       * Invalidates a session to log a user out
       * @return 
       */
-     public String logout(){
+     public void logout(){
          try{
              System.out.println("logout");
              FacesContext context = FacesContext.getCurrentInstance();
              HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
              context.getExternalContext().invalidateSession();
+             
              //session.invalidate();
+             current=null;
+             context.getExternalContext().redirect("http://localhost:8080/SchemaApp2/faces/users/Login.xhtml");
              System.out.println("logged out");
-             return "/users/Login";
          }catch (Exception e){
              JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesful logout"));
          }
-         return null;
      }
 
     public String prepareEdit() {
