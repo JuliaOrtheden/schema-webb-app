@@ -3,6 +3,7 @@ package com.SchemaApp2.model;
 
 import com.SchemaApp2.controller.TimeslotController;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -89,12 +90,25 @@ public class TimeslotHelper {
                     monthStrings[i] = "" + (monthArr[i]+1);
                 }
             }
-            
+            Calendar rightNow = Calendar.getInstance();
+            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
             // Creates a bookable slot for each hour of the day for a week
             for (int i = 0; i < 24; i++) {
                 List<Slot> week = new ArrayList<>();
                 for (int j = 0; j < 7; j++) {
-                    week.add(new Slot(times[i], weekdays[j] + "/" + monthStrings[j] + "/" + year, "Grupprum 1", false));
+                    if(weekdays[j] > LocalDate.now().getDayOfMonth()){
+                        week.add(new Slot(times[i], weekdays[j] + "/" + monthStrings[j] + "/" + year, "Grupprum 1", false)); 
+                        
+                    }
+                    else if(weekdays[j] < LocalDate.now().getDayOfMonth()){
+                        week.add(new Slot(times[i], weekdays[j] + "/" + monthStrings[j] + "/" + year, "Grupprum 1", true));                            
+                    }
+                    else if(hour >= Integer.parseInt(times[i].split(":")[0])){
+                        week.add(new Slot(times[i], weekdays[j] + "/" + monthStrings[j] + "/" + year, "Grupprum 1", true)); 
+                    }else{
+                        week.add(new Slot(times[i], weekdays[j] + "/" + monthStrings[j] + "/" + year, "Grupprum 1", false)); 
+
+                    }
                 }
                 list.add(new WeekSlots(week.get(0), week.get(1), week.get(2),
                         week.get(3), week.get(4), week.get(5), week.get(6)));

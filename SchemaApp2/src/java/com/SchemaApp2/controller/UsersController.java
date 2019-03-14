@@ -133,11 +133,8 @@ public class UsersController implements Serializable {
              FacesContext context = FacesContext.getCurrentInstance();
              HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
              context.getExternalContext().invalidateSession();
-             
-             //session.invalidate();
              current=null;
-             context.getExternalContext().redirect("http://localhost:8080/SchemaApp2/faces/users/Login.xhtml");
-             System.out.println("logged out");
+             context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() +"/faces/users/Login.xhtml");
          }catch (Exception e){
              JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesful logout"));
          }

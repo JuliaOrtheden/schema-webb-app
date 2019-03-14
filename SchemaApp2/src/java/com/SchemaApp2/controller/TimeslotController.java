@@ -201,11 +201,11 @@ public class TimeslotController implements Serializable {
             getFacade().create(timeslot);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Lyckad Bokning!"));
             updateWeek(timeslot.getTimeslotPK().getRoom());
-            //recreateModel();
+            recreateModel();
             
             selectedItemIndex = -1;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Booked"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("SuccessfullBook"));
 
         }
 
