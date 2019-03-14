@@ -201,11 +201,11 @@ public class TimeslotController implements Serializable {
             getFacade().create(timeslot);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Lyckad Bokning!"));
             updateWeek(timeslot.getTimeslotPK().getRoom());
-            recreateModel();
+            //recreateModel();
             
             selectedItemIndex = -1;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("Booked"));
 
         }
 
@@ -299,12 +299,6 @@ public class TimeslotController implements Serializable {
     public String prepareList() {
         recreateModel();
         return "List";
-    }
-
-    public String prepareView() {
-        selected = (Timeslot) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
     }
 
     public String prepareCreate() {

@@ -34,70 +34,6 @@
         <b:messages id="messages" showDetail="true" closable="true" style="color:green;">
         
         </b:messages>
-    <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                 paginator="true" rows="24" style="background:white; margin: 20px;">
- 
-        <p:column style="width:100px; border-radius: none">
-            <f:facet name="header">
-                <h:outputText value="Tid" />
-            </f:facet>
-            <h:outputText value="#{slot.monday.startTime}" styleClass="pi pi-search" style="margin:0 auto;"/>
-        </p:column>
-        <p:column style="border:none">
-                <f:facet name="header">
-                    <h:outputText value="Monday" />
-                </f:facet>
-             <p:commandButton disabled="#{slot.monday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="margin:10px; background-color: #E0E0E0">
-                 <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
-            </p:commandButton>
-            <h:outputText value="#{slot.monday.date}" />
-        </p:column>
- 
-        <p:column >
-            <f:facet name="header">
-                <h:outputText value="Tuesday" />
-            </f:facet>
-            <p:commandButton disabled="#{slot.tuesday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
-                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
-                 <f:setPropertyActionListener value="#{slot.tuesday}" target="#{timeslotController.selectedSlot}" />
-            </p:commandButton>
-            <h:outputText value="#{slot.tuesday.date}" />
-        </p:column>
- 
-        <p:column >
-            <f:facet name="header">
-                <h:outputText value="Wednesday" />
-            </f:facet>
-             <p:commandButton disabled="#{slot.wednesday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
-                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
-                 <f:setPropertyActionListener value="#{slot.wednesday}" target="#{timeslotController.selectedSlot}" />
-            </p:commandButton>
-            <h:outputText value="#{slot.wednesday.date}" />
-        </p:column>
- 
-        <p:column>
-            <f:facet name="header">
-                <h:outputText value="Thursday" />
-            </f:facet>
-             <p:commandButton disabled="#{slot.thursday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
-                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
-                 <f:setPropertyActionListener value="#{slot.thursday}" target="#{timeslotController.selectedSlot}" />
-            </p:commandButton>
-            <h:outputText value="#{slot.thursday.date}" />
-        </p:column>
-        <p:column>
-            <f:facet name="header">
-                <h:outputText value="Friday" />
-            </f:facet>
-             <p:commandButton disabled="#{slot.friday.booked eq true}" value="Boka" update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View" style="background-color: #E0E0E0">
-                 <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
-                 <f:setPropertyActionListener value="#{slot.friday}" target="#{timeslotController.selectedSlot}" />
-            </p:commandButton>
-            <h:outputText value="#{slot.friday.date}" />
-        </p:column>
-    </p:dataTable>
-=======
         <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                      paginator="true" rows="24" style="background:white; margin: 20px;">
@@ -117,7 +53,6 @@
                     <f:setPropertyActionListener value="#{slot.tuesday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
->>>>>>> 13b15ad693c6e05c5a17c4a5cb4526f8a484785c
 
             <p:column headerText="Onsdag #{timeslotController.getHeader(2)}" >
                 <p:commandButton disabled="#{slot.wednesday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
