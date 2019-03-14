@@ -160,17 +160,12 @@ public class TimeslotController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             timeslot.setUsers((Users)session.getAttribute("user"));
-<<<<<<< HEAD
-            System.out.println((Users)session.getAttribute("users"));
+
+            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());            
             //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
             getFacade().create(timeslot);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Lyckad Bokning!"));
-=======
-            
-            //selected.getTimeslotPK().setRoom(selected.getRoom1().getName());
-            getFacade().create(timeslot);
             updateWeek(timeslot.getTimeslotPK().getRoom());
->>>>>>> 821a15a6b3275900b7d8fb3dd577d339e3a190ce
             recreateModel();
             
             selectedItemIndex = -1;
@@ -322,6 +317,7 @@ public class TimeslotController implements Serializable {
         System.out.println("destroy");
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedSlot.setBooked(false);
         performDestroy();
         recreatePagination();
         recreateModel();
