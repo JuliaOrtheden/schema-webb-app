@@ -1,4 +1,4 @@
-package com.SchemaApp2.view;
+package com.SchemaApp2.controller;
 
 import com.SchemaApp2.model.Slot;
 import com.SchemaApp2.model.Timeslot;

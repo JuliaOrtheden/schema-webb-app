@@ -1,7 +1,7 @@
 
 package com.SchemaApp2.model;
 
-import com.SchemaApp2.view.TimeslotController;
+import com.SchemaApp2.controller.TimeslotController;
 import java.io.Serializable;
 import java.time.YearMonth;
 import java.util.ArrayList;
