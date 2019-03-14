@@ -138,13 +138,6 @@ public class TimeslotController implements Serializable {
         String timeslotRoom = tpk.getRoom();
         String timeslotTime = newTimeFormat(tpk.getTime());
         
-        System.out.println("Timeslot values " + timeslotDate + " " + timeslotRoom + " " + timeslotTime);
-        System.out.println("Slot values " + slot.getDate() + " " + slot.getRoom() + " " + slot.getStartTime() );
-        
-        System.out.println("Equal date" + timeslotDate.equals(slot.getDate()));
-        System.out.println("Equal time" + timeslotTime.equals(slot.getStartTime()));
-        System.out.println("Equal room" + timeslotRoom.equals(slot.getRoom()));
-        
         return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getStartTime())));
     }    
     
@@ -188,7 +181,6 @@ public class TimeslotController implements Serializable {
         }
        
         String room = slot.getRoom();
-        System.out.println(room);
         Timeslot timeslot = new Timeslot(date, time, room);
         timeslot.setDescription("hej");
         return timeslot;      
