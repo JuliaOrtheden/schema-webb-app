@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.SchemaApp2.model;
 
-import com.SchemaApp2.view.TimeslotController;
+import com.SchemaApp2.controller.TimeslotController;
 import java.io.Serializable;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -16,10 +12,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-/**
- *
- * @author Johan Wennerbeck
- */
 @Named("timeslotHelper")
 @ManagedBean
 @ApplicationScoped
@@ -32,7 +24,10 @@ public class TimeslotHelper {
         return list;
     }
 
-
+    /**
+     * Creates a week and fills it with slots that a user can book
+     * @return 
+     */
     public List<WeekSlots> createWeek(){
         Calendar now = Calendar.getInstance();
 
@@ -45,6 +40,7 @@ public class TimeslotHelper {
         int daysInMonth = yearMonthObject.lengthOfMonth();
         int dayShift = 0;
 
+        // Creates the right day of the week and date
         int weekShift = 0;
         for (int k = 0; k < 2; k++) {
             dayShift = 0;
@@ -75,7 +71,7 @@ public class TimeslotHelper {
             }
             dayShift = 0;
             
-            
+          // Fixes the format of the time  
             String [] times = new String[24];
             for(int i = 0; i<24;i++){
                 if(i < 10){
@@ -84,6 +80,7 @@ public class TimeslotHelper {
                 times[i] = i + ":00:00";
                 }
             }
+            // Fixes the format of the month
             String[] monthStrings = new String[7];
             for ( int i = 0; i < monthArr.length; i++){
                 if (monthArr[i] < 9){
@@ -93,7 +90,7 @@ public class TimeslotHelper {
                 }
             }
             
-            
+            // Creates a bookable slot for each hour of the day for a week
             for (int i = 0; i < 24; i++) {
                 List<Slot> week = new ArrayList<>();
                 for (int j = 0; j < 7; j++) {
@@ -111,6 +108,11 @@ public class TimeslotHelper {
         return list;
     }
     
+    /**
+     * Filters the rooms by the selected room 
+     * @param room
+     * @return 
+     */
     public List<WeekSlots> reCreateWeek(String room){
         for (int i = 0; i < list.size();i++) {
             list.get(i).getMonday().setRoom(room);

@@ -5,10 +5,6 @@
  */
 package com.SchemaApp2.model;
 
-/**
- *
- * @author Johan Wennerbeck
- */
 public class Slot {
 
     public String getStartTime() {
