@@ -8,6 +8,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:b="http://bootsfaces.net/ui"
       > 
+
     <style type="text/css">
         .value {
             font-weight: bold;
@@ -19,6 +20,8 @@
     </h:head>
     <p:tooltip />
     <h:form id="form">
+
+        <c:set var="tuuus" value="#{timeslotController.slots[0].tuesday.date}" />
 
         <b:formGroup>
             <b:selectOneMenu  id="select" value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2" style="margin-top:25px">
@@ -33,9 +36,14 @@
         </b:formGroup>
         <p:dataTable id="tbl" var="slot" value="#{timeslotController.slots}"
                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     paginator="true" rows="24" style="background:white; margin: 20px;">
+                     paginator="true" rows="24" style="background:white; margin: 20px;"
+                     widgetVar='dt'>
+
 
             <p:column style="width:100px; border-radius: none">
+                <f:facet name="header">
+                    <div id="tid"></div>
+                </f:facet>
                 <h:outputText value="#{slot.monday.startTime}" styleClass="pi pi-search" style="margin:0 auto;"/>
             </p:column>
             <p:column style="border:none" headerText="Måndag #{timeslotController.getHeader(0)}">
@@ -43,12 +51,12 @@
                     <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
-            
-            <p:column headerText="Tisdag #{timeslotController.getHeader(1)}">
+            <p:column headerText="Tisdag #{tuuus}" >
                 <p:commandButton disabled="#{slot.tuesday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.tuesday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
+                <h:outputText value='#{tuuus}'/>
             </p:column>
 
             <p:column headerText="Onsdag #{timeslotController.getHeader(2)}" >
@@ -64,40 +72,58 @@
                     <f:setPropertyActionListener value="#{slot.thursday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
-            <p:column headerText="Fredag #{timeslotController.getHeader(4)}">
+            <p:column id="friday" headerText="Fredag #{timeslotController.getHeader(4)}">
                 <p:commandButton disabled="#{slot.friday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.friday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
-        </p:dataTable>
-        
-    <p:dialog header="Boka" widgetVar="bookingDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-        <p:outputPanel id="bookingDetail" style="text-align:center;">
-            <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="value,value">
-                 
-                <h:outputText value="Datum:" />
-                <h:outputText value="#{timeslotController.selectedSlot.date}" />
- 
- 
-                <h:outputText value="Starttid" />
-                <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
-                
-                
-                <h:outputText value="Rum" />
-                <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
-                 
-                <h:outputText value="Beskrivning"/>
-                <h:inputText value="#{timeslotController.selectedSlot.description}"/>
-                           
-                
-            </p:panelGrid>
-        </p:outputPanel>
-         <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}" styleClass="s"/>
-    </p:dialog>
-      
+            <p:ajax event="page" oncomplete="myFunction();" />
 
-      
- 
-</h:form>
+        </p:dataTable>
+        <script>
+            var datess = "hhhhh";
+
+            function getDate() {
+
+            }
+            function myFunction() {
+
+                var pageNumber = PF('dt').getPaginator().getCurrentPage();
+                document.getElementById("tid").innerHTML = "Hello JavaScript!";
+                console.log('banan');
+            }
+        </script>
+
+
+
+        <p:dialog header="Boka" widgetVar="bookingDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:outputPanel id="bookingDetail" style="text-align:center;">
+                <p:panelGrid columns="2" rendered="#{not empty timeslotController.selectedSlot}" columnClasses="value,value">
+
+                    <h:outputText value="Datum:" />
+                    <h:outputText value="#{timeslotController.selectedSlot.date}" />
+
+
+                    <h:outputText value="Starttid" />
+                    <h:outputText value="#{timeslotController.selectedSlot.startTime}"/>
+
+
+                    <h:outputText value="Rum" />
+                    <h:outputText value= "#{timeslotController.selectedSlot.room}"/>
+
+                    <h:outputText value="Beskrivning"/>
+                    <h:inputText value="#{timeslotController.selectedSlot.description}"/>
+
+
+                </p:panelGrid>
+            </p:outputPanel>
+            <h:commandLink value="Boka" action="#{timeslotController.bookTimeslot()}" styleClass="s"/>
+        </p:dialog>
+
+
+
+
+    </h:form>
+
 </html>

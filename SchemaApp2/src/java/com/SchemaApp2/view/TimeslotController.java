@@ -53,15 +53,11 @@ public class TimeslotController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
-<<<<<<< HEAD
     private String[] header;
-=======
 
     /**
      * TimeslotController is responsible for connecting the bookings to the data base. 
      */
->>>>>>> 9115913255e491c12d63ee803fb0662a084e70cb
-
     public TimeslotController() {
     }
        
@@ -79,7 +75,6 @@ public class TimeslotController implements Serializable {
         header = new String[5];
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
-<<<<<<< HEAD
         System.out.println(slots.get(0).getMonday().getDate());
         System.out.println(slots.get(0).getTuesday().getDate());
         this.setHeader(slots.get(0).getMonday().getDate(), 0);
@@ -95,19 +90,22 @@ public class TimeslotController implements Serializable {
         return header[i];
     }
     
-    public void setHeader(String header, int i){
-        this.header[i] = header;
-        System.out.println(header +  i +  "OOOOMMMMMGGG");
+    public String getHeader2(String header){
+        return header;
     }
     
-=======
-   
+    public void setNewDates(int i){
+        System.out.println("JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
+    
+    public void setHeader(String header, int i){
+        this.header[i] = header;
+    }
+       
     
     /**
      * Reformats the date to work with the data base
      */
->>>>>>> 9115913255e491c12d63ee803fb0662a084e70cb
     public String newDateFormat(Date date){
         String pattern = "dd/MM/yyyy";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

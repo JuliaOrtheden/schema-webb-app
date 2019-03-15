@@ -27,7 +27,7 @@
                     <h:inputSecret id="password" title="#{bundle.CreateUsersTitle_password}"/>
                     <h:outputLabel value="#{bundle.CreateUsersLabel_division}" for="division" />
                     <h:inputText id="division" value="#{usersController.selected.division}" title="#{bundle.CreateUsersTitle_division}" />
-                    <h:inputHidden id="usertype" value="student"/>
+                    <h:inputHidden id="usertype" value="student"/> 
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usersController.create}" value="#{bundle.Save}" styleClass="s" />

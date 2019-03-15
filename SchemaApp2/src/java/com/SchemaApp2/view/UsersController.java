@@ -96,6 +96,12 @@ public class UsersController implements Serializable {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
+            Users user = getFacade().login(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
+            current = user;
+            FacesContext context2 = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
