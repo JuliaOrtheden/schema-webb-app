@@ -1,4 +1,4 @@
-package com.SchemaApp2.view;
+package com.SchemaApp2.controller;
 
 import com.SchemaApp2.model.Slot;
 import com.SchemaApp2.model.Timeslot;
@@ -58,9 +58,14 @@ public class TimeslotController implements Serializable {
     /**
      * TimeslotController is responsible for connecting the bookings to the data base. 
      */
+
     public TimeslotController() {
     }
        
+    public void print(){
+        System.out.println("AJAJJAJAJAJAJJAJAJ");
+    }
+    
     private List<WeekSlots> slots;
     
     @ManagedProperty("#{timeslotHelper}")
@@ -75,8 +80,7 @@ public class TimeslotController implements Serializable {
         header = new String[5];
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
-        System.out.println(slots.get(0).getMonday().getDate());
-        System.out.println(slots.get(0).getTuesday().getDate());
+
         this.setHeader(slots.get(0).getMonday().getDate(), 0);
         this.setHeader(slots.get(0).getTuesday().getDate(), 1);
         this.setHeader(slots.get(0).getWednesday().getDate(), 2);
@@ -97,11 +101,10 @@ public class TimeslotController implements Serializable {
     public void setNewDates(int i){
         System.out.println("JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
-    
     public void setHeader(String header, int i){
         this.header[i] = header;
     }
-       
+          
     
     /**
      * Reformats the date to work with the data base
@@ -147,13 +150,6 @@ public class TimeslotController implements Serializable {
         String timeslotRoom = tpk.getRoom();
         String timeslotTime = newTimeFormat(tpk.getTime());
         
-        System.out.println("Timeslot values " + timeslotDate + " " + timeslotRoom + " " + timeslotTime);
-        System.out.println("Slot values " + slot.getDate() + " " + slot.getRoom() + " " + slot.getStartTime() );
-        
-        System.out.println("Equal date" + timeslotDate.equals(slot.getDate()));
-        System.out.println("Equal time" + timeslotTime.equals(slot.getStartTime()));
-        System.out.println("Equal room" + timeslotRoom.equals(slot.getRoom()));
-        
         return(timeslotDate.equals(slot.getDate()) && (timeslotRoom.equals(slot.getRoom()) && timeslotTime.equals(slot.getStartTime())));
     }    
     
@@ -197,7 +193,6 @@ public class TimeslotController implements Serializable {
         }
        
         String room = slot.getRoom();
-        System.out.println(room);
         Timeslot timeslot = new Timeslot(date, time, room);
         timeslot.setDescription("hej");
         return timeslot;      
@@ -222,7 +217,7 @@ public class TimeslotController implements Serializable {
             
             selectedItemIndex = -1;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("SuccessfullBook"));
 
         }
 
@@ -318,12 +313,6 @@ public class TimeslotController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
-        selected = (Timeslot) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
-
     public String prepareCreate() {
         selected = new Timeslot();
         selected.setTimeslotPK(new com.SchemaApp2.model.TimeslotPK());
@@ -377,6 +366,7 @@ public class TimeslotController implements Serializable {
         System.out.println("destroy");
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        selectedSlot.setBooked(false);
         performDestroy();
         recreatePagination();
         recreateModel();

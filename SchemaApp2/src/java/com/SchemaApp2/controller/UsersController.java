@@ -1,9 +1,9 @@
-package com.SchemaApp2.view;
+package com.SchemaApp2.controller;
 
-import com.SchemaApp2.model.Room;
+import com.SchemaApp2.model.Users;
 import com.SchemaApp2.view.util.JsfUtil;
 import com.SchemaApp2.view.util.PaginationHelper;
-import com.SchemaApp2.model.RoomFacade;
+import com.SchemaApp2.model.UsersFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -17,30 +17,32 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-@Named("roomController")
+@Named("usersController")
 @SessionScoped
-public class RoomController implements Serializable {
+public class UsersController implements Serializable {
 
-    private Room current;
+    private Users current;
     private DataModel items = null;
     @EJB
-    private com.SchemaApp2.model.RoomFacade ejbFacade;
+    private com.SchemaApp2.model.UsersFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public RoomController() {
+    public UsersController() {
     }
 
-    public Room getSelected() {
+    public Users getSelected() {
         if (current == null) {
-            current = new Room();
+            current = new Users();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private RoomFacade getFacade() {
+    private UsersFacade getFacade() {
         return ejbFacade;
     }
 
@@ -68,30 +70,84 @@ public class RoomController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Room) getItems().getRowData();
+        current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Room();
+        current = new Users();
         selectedItemIndex = -1;
-        return "Create";
+        return "WelcomePage";
     }
-
+    
+    public String prepareWelcome(Users user){
+        if(user.getUsertype().equals("admin")){
+            return "AdminWelcomePage";
+        }
+        return "WelcomePage";
+    }
+    
+    /**
+     * Creates a new user
+     * @return 
+     */
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoomCreated"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
+            Users user = getFacade().login(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
+            current = user;
+            FacesContext context2 = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;
         }
     }
+    
+     /**
+      * Uses http sessions to log a user in
+      * @return 
+      */
+     public String login() {
+        try {
+            Users user = getFacade().login(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersLogin"));
+            current = user;
+            FacesContext context2 = FacesContext.getCurrentInstance();
+            HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
+            session.setAttribute("user", user);
+            return prepareWelcome(user);
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("WrongUser"));
+                   
+            return null;
+        }
+    }
+     
+     /**
+      * Invalidates a session to log a user out
+      * @return 
+      */
+     public void logout(){
+         try{
+             System.out.println("logout");
+             FacesContext context = FacesContext.getCurrentInstance();
+             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+             context.getExternalContext().invalidateSession();
+             current=null;
+             context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath() +"/faces/users/Login.xhtml");
+         }catch (Exception e){
+             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle"). getString("Unsuccsesful logout"));
+         }
+     }
 
     public String prepareEdit() {
-        current = (Room) getItems().getRowData();
+        current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -99,16 +155,16 @@ public class RoomController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoomUpdated"));
-            return "View";
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
+            return "Profile";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;
         }
     }
 
     public String destroy() {
-        current = (Room) getItems().getRowData();
+        current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -132,9 +188,9 @@ public class RoomController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoomDeleted"));
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("CannotDelete"));
         }
     }
 
@@ -188,21 +244,21 @@ public class RoomController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    public Room getRoom(java.lang.String id) {
+    public Users getUsers(java.lang.String id) {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Room.class)
-    public static class RoomControllerConverter implements Converter {
+    @FacesConverter(forClass = Users.class)
+    public static class UsersControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            RoomController controller = (RoomController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "roomController");
-            return controller.getRoom(getKey(value));
+            UsersController controller = (UsersController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "usersController");
+            return controller.getUsers(getKey(value));
         }
 
         java.lang.String getKey(String value) {
@@ -222,11 +278,11 @@ public class RoomController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Room) {
-                Room o = (Room) object;
-                return getStringKey(o.getName());
+            if (object instanceof Users) {
+                Users o = (Users) object;
+                return getStringKey(o.getCid());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Room.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Users.class.getName());
             }
         }
 
