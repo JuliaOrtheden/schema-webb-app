@@ -77,7 +77,7 @@ public class TimeslotController implements Serializable {
     @PostConstruct
     public void init() {
         timeslotHelper = new TimeslotHelper();
-        header = new String[5];
+        header = new String[10];
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
 
@@ -86,6 +86,12 @@ public class TimeslotController implements Serializable {
         this.setHeader(slots.get(0).getWednesday().getDate(), 2);
         this.setHeader(slots.get(0).getThursday().getDate(), 3);
         this.setHeader(slots.get(0).getFriday().getDate(), 4);
+        this.setHeader(slots.get(24).getMonday().getDate(), 5);
+        this.setHeader(slots.get(24).getTuesday().getDate(), 6);
+        this.setHeader(slots.get(24).getWednesday().getDate(), 7);
+        this.setHeader(slots.get(24).getThursday().getDate(), 8);
+        this.setHeader(slots.get(24).getFriday().getDate(), 9);
+        
     }
     
     

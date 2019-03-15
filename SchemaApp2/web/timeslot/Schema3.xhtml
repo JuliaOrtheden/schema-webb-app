@@ -45,26 +45,38 @@
                 </f:facet>
                 <h:outputText value="#{slot.monday.startTime}" styleClass="pi pi-search" style="margin:0 auto;"/>
             </p:column>
-            <p:column style="border:none" headerText="Måndag #{timeslotController.getHeader(0)}">
+            <p:column style="border:none">
+                <f:facet name="header">
+                    <div id="monday">Måndag #{timeslotController.getHeader(0)}</div>
+                </f:facet>
                 <p:commandButton disabled="#{slot.monday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="margin:10px; background-color: #E0E0E0">
                     <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
-            <p:column headerText="Tisdag #{timeslotController.getHeader(1)}" >
+            <p:column>
+                <f:facet name="header">
+                    <div id="tuesday">Tisdag #{timeslotController.getHeader(1)}</div>
+                </f:facet>
                 <p:commandButton disabled="#{slot.tuesday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.tuesday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
 
-            <p:column headerText="Onsdag #{timeslotController.getHeader(2)}" >
+            <p:column >
+                <f:facet name="header">
+                    <div id="wednesday">Onsdag #{timeslotController.getHeader(2)}</div>
+                </f:facet>
                 <p:commandButton disabled="#{slot.wednesday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.wednesday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
 
-            <p:column headerText="Torsdag #{timeslotController.getHeader(3)}">
+            <p:column>
+                <f:facet name="header">
+                    <div id="thursday">Torsdag #{timeslotController.getHeader(3)}</div>
+                </f:facet>
                 <p:commandButton disabled="#{slot.thursday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.thursday}" target="#{timeslotController.selectedSlot}" />
@@ -79,20 +91,32 @@
                     <f:setPropertyActionListener value="#{slot.friday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
-            <p:ajax event="page" oncomplete="myFunction(#{timeslotController});" />
+            <p:ajax event="page" oncomplete="myFunction()" />
 
         </p:dataTable>
+        <param id="d0" value="Måndag #{timeslotController.getHeader(0)}"/>
+        <param id="d1" value="Tisdag #{timeslotController.getHeader(1)}"/>
+        <param id="d2" value="Onsdag #{timeslotController.getHeader(2)}"/>
+        <param id="d3" value="Torsdag #{timeslotController.getHeader(3)}"/>
+        <param id="d4" value="Fredag #{timeslotController.getHeader(4)}"/>
+        <param id="d7" value="Måndag #{timeslotController.getHeader(5)}"/>
+        <param id="d8" value="Tisdag #{timeslotController.getHeader(6)}"/>
+        <param id="d9" value="Onsdag #{timeslotController.getHeader(7)}"/>
+        <param id="d10" value="Torsdag #{timeslotController.getHeader(8)}"/>
+        <param id="d11" value="Fredag #{timeslotController.getHeader(9)}"/>
+        
         <script type="text/javascript">
-            var datess = "hhhhh";
 
             function getDate() {
-
-            }
-            function myFunction(TimeslotController tc) {
-                console.log("JAJAJAJAJAJAJ")
-                tc.print()
-                //var pageNumber = PF('dt').getPaginator().getCurrentPage();
-                //document.getElementById("friday").innerHTML = "Hello JavaScript!";
+}
+            function myFunction() {
+                var pageNumber = PF('dt').getPaginator().getCurrentPage();
+                document.getElementById("monday").innerHTML = document.getElementById("d" + (0 + (pageNumber)*7)).value;
+                document.getElementById("tuesday").innerHTML = document.getElementById("d" + (1 + (pageNumber)*7)).value;
+                document.getElementById("wednesday").innerHTML = document.getElementById("d" + (2 + (pageNumber)*7)).value;
+                document.getElementById("thursday").innerHTML = document.getElementById("d" + (3 + (pageNumber)*7)).value;
+                document.getElementById("friday").innerHTML = document.getElementById("d" + (4 + (pageNumber)*7)).value;
+                
                 //console.log('banan');
             }
         </script>
