@@ -1,3 +1,3 @@
-A booking application that students could use to book study rooms, music room or the physical education hall possibly at Chalmers Union building. To start the application you need to have BootFaces and PrimeFaces added as libraries.
+A booking application that students could use to book study rooms, music room or the physical education hall possibly at Chalmers Union building. To start the application you need to have BootFaces and PrimeFaces added as libraries and use the Payara server. You also need to create an empty Java db database called schemadb2, then the tables will be auto generated. To be able to book a room you must first create rooms named "Grupprum 1", "Grupprum 2", "Grupprum 3", "Motionshallen" and "Musikrummet". These names specifically since this is the available rooms in Chalmers Union Building.
 
-The report will be found under the directory documents.
+The report will be found at root level, named "SchemaAppReport".
