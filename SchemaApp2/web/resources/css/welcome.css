@@ -35,6 +35,19 @@ and open the template in the editor.
   color:#3a4f54;
 }
 
+.p {
+ text-decoration:none;
+ padding:5px 10px;
+ background:white;
+ color:#003399;
+ float:right;
+    
+}
+
+.p:hover {
+  color:#3399ff;
+}
+
 .b {
   background-color: #3399ff; /* Green */
   border: none;

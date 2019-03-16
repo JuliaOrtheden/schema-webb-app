@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -14,10 +9,15 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:link outcome="/users/Profile" value="Profil" styleClass="h"/>
+        <h:link outcome="/users/Profile" value="Profil" styleClass="p"/>
         <h:form>
-        <p:commandLink action="#{usersController.logout}" value="Logga ut" styleClass="h"/>
+        <p:commandLink action="#{usersController.logout}" value="Logga ut" styleClass="p"/>
         </h:form>
         <h:link outcome="/timeslot/MyBookings" value="Mina Bokningar" styleClass="h"/>
+        <h:link outcome="/timeslot/Schema3" value="Boka" styleClass="h"/>
+        <h:link rendered="#{user.usertype == 'admin'}" outcome="/timeslot/List" value="Visa alla bokningar" styleClass="h"/> 
+        <h:link rendered="#{user.usertype == 'admin'}" outcome="/users/List" value="Visa alla användare" styleClass="h"/> 
+        <h:link rendered="#{user.usertype == 'admin'}" outcome="/room/List" value="Visa alla rum" styleClass="h"/>
+        
     </h:body>
 </html>
