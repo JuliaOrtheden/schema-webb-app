@@ -20,7 +20,7 @@ public class TimeslotHelper {
 
     
     List<WeekSlots> list = new ArrayList<>();
-    
+    private String[] header;
     public List<WeekSlots> getList(){
         return list;
     }
@@ -31,7 +31,6 @@ public class TimeslotHelper {
      */
     public List<WeekSlots> createWeek(){
         Calendar now = Calendar.getInstance();
-
         int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
         int monday = now.get(Calendar.DATE) - dayOfWeek + 2;
         int year = now.get(Calendar.YEAR);
@@ -116,10 +115,30 @@ public class TimeslotHelper {
 
             }
             weekShift += 1;
-          
-
         }
         return list;
+    }
+    
+    public void initHeaders(){
+        header = new String[10];
+        this.setHeader(list.get(0).getMonday().getDate(), 0);
+        this.setHeader(list.get(0).getTuesday().getDate(), 1);
+        this.setHeader(list.get(0).getWednesday().getDate(), 2);
+        this.setHeader(list.get(0).getThursday().getDate(), 3);
+        this.setHeader(list.get(0).getFriday().getDate(), 4);
+        this.setHeader(list.get(24).getMonday().getDate(), 5);
+        this.setHeader(list.get(24).getTuesday().getDate(), 6);
+        this.setHeader(list.get(24).getWednesday().getDate(), 7);
+        this.setHeader(list.get(24).getThursday().getDate(), 8);
+        this.setHeader(list.get(24).getFriday().getDate(), 9);
+    }
+    
+    public String getHeader(int i){
+        return this.header[i];
+    }
+    
+    public void setHeader(String date, int i){
+        this.header[i] = date;
     }
     
     /**
