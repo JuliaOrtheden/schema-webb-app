@@ -100,9 +100,9 @@ public class RoomController implements Serializable {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RoomUpdated"));
-            return prepareEdit();
+            return "Edit";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("ErrorRoom"));
             return null;
         }
     }

@@ -73,7 +73,7 @@ public class UsersController implements Serializable {
     public String prepareRegister() {
         current = new Users();
         selectedItemIndex = -1;
-        return "Welcome";
+        return "WelcomePage";
     }
     
      public String prepareCreate() {

@@ -16,7 +16,7 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditUsersLabel_cid}" for="cid" />
-                    <h:inputText id="cid" value="#{usersController.selected.cid}" title="#{bundle.EditUsersTitle_cid}" required="true" requiredMessage="#{bundle.EditUsersRequiredMessage_cid}"/>
+                    <h:outputText id="cid" value="#{usersController.selected.cid}" title="#{bundle.EditUsersTitle_cid}"/>
                     <h:outputLabel value="#{bundle.EditUsersLabel_firstname}" for="firstname" />
                     <h:inputText id="firstname" value="#{usersController.selected.firstname}" title="#{bundle.EditUsersTitle_firstname}" />
                     <h:outputLabel value="#{bundle.EditUsersLabel_lastname}" for="lastname" />
