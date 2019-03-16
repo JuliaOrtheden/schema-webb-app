@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -222,11 +223,27 @@ public class TimeslotController implements Serializable {
               Slot thu = weekSlot.getThursday();
               Slot fri = weekSlot.getFriday();
               
-              mon.setBooked(false);
-              tue.setBooked(false);
-              wed.setBooked(false);
-              thu.setBooked(false);
-              fri.setBooked(false);
+              int monDay = Integer.parseInt(mon.getDate().split("/")[0]);
+              int tueDay = Integer.parseInt(tue.getDate().split("/")[0]);
+              int wedDay = Integer.parseInt(wed.getDate().split("/")[0]);
+              int thuDay = Integer.parseInt(thu.getDate().split("/")[0]);
+              int friDay = Integer.parseInt(fri.getDate().split("/")[0]);
+              
+              if(monDay > LocalDate.now().getDayOfMonth()){
+                  mon.setBooked(false);
+              }
+              if(tueDay > LocalDate.now().getDayOfMonth()){
+                  tue.setBooked(false);
+              }
+              if(wedDay > LocalDate.now().getDayOfMonth()){
+                  wed.setBooked(false);
+              }
+              if(thuDay > LocalDate.now().getDayOfMonth()){
+                  thu.setBooked(false);
+              }
+              if(friDay > LocalDate.now().getDayOfMonth()){
+                  fri.setBooked(false);
+              }
          }
     }
     
