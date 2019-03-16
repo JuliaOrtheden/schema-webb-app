@@ -14,12 +14,14 @@
             font-weight: bold;
         }
     </style>
+    
     <h:head>
         <h:outputStylesheet library="css" name="welcome.css" />
         <ui:include src="../users/Header.xhtml" />
     </h:head>
     <p:tooltip />
-    <h:form id="form">
+    <h:form id="form" >
+        
         <b:formGroup>
             <b:selectOneMenu  id="select" value="#{timeslotController.selectedSlot.room}" colMd="2" required="true" labelColMd="2" style="margin-top:25px">
                 <f:selectItem itemLabel="Grupprum 1" itemValue="Grupprum 1"/>
@@ -28,7 +30,8 @@
                 <f:selectItem itemLabel="Motionshallen" itemValue="Motionshallen"/>
                 <f:selectItem itemLabel="Musikrummet" itemValue="Musikrummet"/>
             </b:selectOneMenu>
-            <b:commandLink styleClass="s" value="Update Room" action="#{timeslotController.updateWeek(timeslotController.selectedSlot.room)}"/>
+            <b:commandLink styleClass="s" value="Update Room" action="#{timeslotController.updateWeek(timeslotController.selectedSlot.room)}">
+            </b:commandLink>
         </b:formGroup>
         <b:messages id="messages" showDetail="true" style="color:green;">
         
@@ -37,6 +40,7 @@
                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                      paginator="true" rows="24" style="background:white; margin: 20px;"
                      widgetVar='dt'>
+            <p:ajax event="page" oncomplete="myFunction()"/>
 
 
             <p:column style="width:100px; border-radius: none">
@@ -47,7 +51,7 @@
             </p:column>
             <p:column style="border:none">
                 <f:facet name="header">
-                    <div id="monday">Måndag #{timeslotController.getHeader(0)}</div>
+                    <div id="monday"></div>
                 </f:facet>
                 <p:commandButton disabled="#{slot.monday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="margin:10px; background-color: #E0E0E0">
                     <f:setPropertyActionListener value="#{slot.monday}" target="#{timeslotController.selectedSlot}" />
@@ -55,7 +59,7 @@
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <div id="tuesday">Tisdag #{timeslotController.getHeader(1)}</div>
+                    <div id="tuesday"></div>
                 </f:facet>
                 <p:commandButton disabled="#{slot.tuesday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
@@ -65,7 +69,7 @@
 
             <p:column >
                 <f:facet name="header">
-                    <div id="wednesday">Onsdag #{timeslotController.getHeader(2)}</div>
+                    <div id="wednesday"></div>
                 </f:facet>
                 <p:commandButton disabled="#{slot.wednesday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
@@ -75,7 +79,7 @@
 
             <p:column>
                 <f:facet name="header">
-                    <div id="thursday">Torsdag #{timeslotController.getHeader(3)}</div>
+                    <div id="thursday"></div>
                 </f:facet>
                 <p:commandButton disabled="#{slot.thursday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
@@ -84,14 +88,13 @@
             </p:column>
             <p:column>
                 <f:facet name="header">
-                    <div id="friday">Fredag #{timeslotController.getHeader(4)}</div>
+                    <div id="friday"></div>
                 </f:facet>
                 <p:commandButton disabled="#{slot.friday.booked eq true}" value="Boka" update=":form:bookingDetail" oncomplete="PF('bookingDialog').show()" title="View" style="background-color: #E0E0E0">
                     <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
                     <f:setPropertyActionListener value="#{slot.friday}" target="#{timeslotController.selectedSlot}" />
                 </p:commandButton>
             </p:column>
-            <p:ajax event="page" oncomplete="myFunction()" />
 
         </p:dataTable>
         <param id="d0" value="Måndag #{timeslotController.getHeader(0)}"/>
@@ -104,22 +107,8 @@
         <param id="d9" value="Onsdag #{timeslotController.getHeader(7)}"/>
         <param id="d10" value="Torsdag #{timeslotController.getHeader(8)}"/>
         <param id="d11" value="Fredag #{timeslotController.getHeader(9)}"/>
+        <param id="pn" value="0"/>
         
-        <script type="text/javascript">
-
-            function getDate() {
-}
-            function myFunction() {
-                var pageNumber = PF('dt').getPaginator().getCurrentPage();
-                document.getElementById("monday").innerHTML = document.getElementById("d" + (0 + (pageNumber)*7)).value;
-                document.getElementById("tuesday").innerHTML = document.getElementById("d" + (1 + (pageNumber)*7)).value;
-                document.getElementById("wednesday").innerHTML = document.getElementById("d" + (2 + (pageNumber)*7)).value;
-                document.getElementById("thursday").innerHTML = document.getElementById("d" + (3 + (pageNumber)*7)).value;
-                document.getElementById("friday").innerHTML = document.getElementById("d" + (4 + (pageNumber)*7)).value;
-                
-                //console.log('banan');
-            }
-        </script>
         
     <p:dialog header="Boka" widgetVar="bookingDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
         <p:outputPanel id="bookingDetail" style="text-align:center;">
@@ -144,9 +133,32 @@
         </p:outputPanel>
          <h:commandLink  styleClass="s" value="#{bundle.Book}" action="#{timeslotController.bookTimeslot()}"/>
     </p:dialog>
-      
-
-      
- 
-</h:form>
+ <script type="text/javascript">
+            function myFunction() {
+                console.log("ccc")
+                var pageNumber = PF('dt').getPaginator().getCurrentPage();
+                console.log("ddd")
+                document.getElementById("pn").setAttribute("value", pageNumber);
+                document.getElementById("monday").innerHTML = document.getElementById("d" + (0 + (pageNumber)*7)).value;
+                document.getElementById("tuesday").innerHTML = document.getElementById("d" + (1 + (pageNumber)*7)).value;
+                document.getElementById("wednesday").innerHTML = document.getElementById("d" + (2 + (pageNumber)*7)).value;
+                document.getElementById("thursday").innerHTML = document.getElementById("d" + (3 + (pageNumber)*7)).value;
+                document.getElementById("friday").innerHTML = document.getElementById("d" + (4 + (pageNumber)*7)).value;
+                
+                //console.log('banan');
+            }
+            window.addEventListener("load", function(){
+                var integer = parseInt(document.getElementById("pn").value, 10);
+                
+                var pageNumber = integer;
+                document.getElementById("monday").innerHTML = document.getElementById("d" + (0 + (pageNumber)*7)).value;
+                document.getElementById("tuesday").innerHTML = document.getElementById("d" + (1 + (pageNumber)*7)).value;
+                document.getElementById("wednesday").innerHTML = document.getElementById("d" + (2 + (pageNumber)*7)).value;
+                document.getElementById("thursday").innerHTML = document.getElementById("d" + (3 + (pageNumber)*7)).value;
+                document.getElementById("friday").innerHTML = document.getElementById("d" + (4 + (pageNumber)*7)).value;
+            });    
+        </script>
+      </h:form>
+    
+       
 </html>
