@@ -165,7 +165,6 @@ public class TimeslotController implements Serializable {
      */
     public List<Timeslot> getBookedTimeslots(){
         List<Timeslot> list = ejbFacade.getBookedTimeslots();
-        System.out.println("Booked: " + list);
         return list;
     } 
     
@@ -186,7 +185,6 @@ public class TimeslotController implements Serializable {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
         String sDate = slot.getDate();
-  
         String sTime = slot.getStartTime();
         
         Date date = new Date();
@@ -242,13 +240,33 @@ public class TimeslotController implements Serializable {
     }
     
     /**
+     * 
+     */
+    private void initiateSlots(){
+         for(WeekSlots weekSlot: slots){
+              Slot mon = weekSlot.getMonday();
+              Slot tue = weekSlot.getTuesday();
+              Slot wed = weekSlot.getWednesday();
+              Slot thu = weekSlot.getThursday();
+              Slot fri = weekSlot.getFriday();
+              
+              mon.setBooked(false);
+              tue.setBooked(false);
+              wed.setBooked(false);
+              thu.setBooked(false);
+              fri.setBooked(false);
+         }
+    }
+    
+    /**
      * Updates the weeks to mark the booked time slots
      * @param room 
      */
     
     public void updateWeek(String room){
         slots = timeslotHelper.reCreateWeek(room);
-         List<Timeslot> bookedList = getBookedTimeslots();
+        List<Timeslot> bookedList = getBookedTimeslots();
+        initiateSlots();
         
         for(WeekSlots weekSlot: slots){
             if(!bookedList.isEmpty()){
@@ -258,6 +276,7 @@ public class TimeslotController implements Serializable {
                     Slot wed = weekSlot.getWednesday();
                     Slot thu = weekSlot.getThursday();
                     Slot fri = weekSlot.getFriday();
+                    
                     if(compare(ts,mon)){
                         mon.setBooked(true);
                     }else if(compare(ts,tue)){
@@ -268,7 +287,7 @@ public class TimeslotController implements Serializable {
                         thu.setBooked(true);
                     }else if(compare(ts,fri)){
                         fri.setBooked(true);
-                    } 
+                    }
                 }
             }
         }
@@ -372,7 +391,6 @@ public class TimeslotController implements Serializable {
         System.out.println("destroy");
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        selectedSlot.setBooked(false);
         performDestroy();
         recreatePagination();
         recreateModel();

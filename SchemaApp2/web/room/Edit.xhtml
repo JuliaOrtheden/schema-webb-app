@@ -22,15 +22,11 @@
                     <h:outputLabel value="#{bundle.EditRoomLabel_maxpeople}" for="maxpeople" />
                     <h:inputText id="maxpeople" value="#{roomController.selected.maxpeople}" title="#{bundle.EditRoomTitle_maxpeople}" />
                 </h:panelGrid>
-                <h:commandLink action="#{roomController.update}" value="#{bundle.EditRoomSaveLink}"/>
+                <h:commandLink action="#{roomController.update}" value="#{bundle.Save}"/>
                 <br />
-                <br />
-                <h:link outcome="View" value="#{bundle.EditRoomViewLink}"/>
                 <br />
                 <h:commandLink action="#{roomController.prepareList}" value="#{bundle.EditRoomShowAllLink}" immediate="true"/>
                 <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.EditRoomIndexLink}" />
             </h:form>
         </ui:define>
     </ui:composition>
