@@ -31,7 +31,7 @@
                     <f:facet name="header">
                                 <h:outputText value="#{bundle.ListTimeslotTitle_timeslotPK_date}"/>
                             </f:facet>
-                            <h:outputText value="#{b.timeslotPK.date}">
+                            <h:outputText value="#{timeslotController.addDay(b.timeslotPK.date)}">
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                 </b:dataTableColumn>
@@ -39,7 +39,7 @@
                     <f:facet name="header">
                                 <h:outputText value="Starttid"/>
                             </f:facet>
-                            <h:outputText value="#{b.timeslotPK.time}">
+                            <h:outputText value="#{timeslotController.addHour(b.timeslotPK.time)}">
                                 <f:convertDateTime pattern="HH:mm:ss" />
                             </h:outputText>
                 </b:dataTableColumn>

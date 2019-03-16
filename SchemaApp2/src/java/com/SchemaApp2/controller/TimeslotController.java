@@ -14,12 +14,14 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
@@ -104,7 +106,7 @@ public class TimeslotController implements Serializable {
         String timeString = simpleDateFormat.format(time);
         return timeString;
     }
-    
+      
     /**
      * Gets all bookings for a user
      * @param user 
@@ -182,7 +184,6 @@ public class TimeslotController implements Serializable {
         try {
             Timeslot timeslot = convertSlotToTimeslot(selectedSlot);
             timeslot.setDescription(selectedSlot.getDescription());
-            //bookedslots.add(selectedSlot);
             FacesContext context = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
             timeslot.setUsers((Users)session.getAttribute("user"));
@@ -212,7 +213,7 @@ public class TimeslotController implements Serializable {
     }
     
     /**
-     * 
+     * Initializes the slots to be unbooked before going through the list of booked slots
      */
     private void initiateSlots(){
          for(WeekSlots weekSlot: slots){
@@ -231,14 +232,14 @@ public class TimeslotController implements Serializable {
     }
     
     /**
-     * Updates the weeks to mark the booked time slots
+     * Updates the weeks to mark the booked time slots by comparing the list of booked slots from the database with our slot models
      * @param room 
      */
     
     public void updateWeek(String room){
         slots = timeslotHelper.reCreateWeek(room);
         List<Timeslot> bookedList = getBookedTimeslots();
-        initiateSlots();  
+        initiateSlots();
         for(WeekSlots weekSlot: slots){
             if(!bookedList.isEmpty()){
                 for(Timeslot ts: bookedList){
@@ -357,15 +358,38 @@ public class TimeslotController implements Serializable {
             return null;
         }
     }
+    
+     public Date addHour(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        System.out.println(calendar.getTime());
+        return calendar.getTime();
+    }
+     
+    public Date addDay(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH,1);
+        return calendar.getTime();
+    }
       
     public String destroy() {
-        System.out.println("destroy");
         selected = (Timeslot) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "MyBookings";
+    }
+    
+     public String adminDestroy() {
+        selected = (Timeslot) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        performDestroy();
+        recreatePagination();
+        recreateModel();
+        return prepareList();
     }
 
     public String destroyAndView() {
@@ -447,7 +471,7 @@ public class TimeslotController implements Serializable {
         int d = Calendar.DAY_OF_MONTH;
         int weekDay = Calendar.DAY_OF_WEEK;
         for (int i = 1; i < 8; i++) {
-            dates.add((weekDay-d+i)+"/" + m + "/");
+            dates.add((weekDay-d+1)+"/" + m + "/");
         }
         return dates;
     }

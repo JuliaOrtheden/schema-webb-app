@@ -33,7 +33,6 @@
                                 <h:outputText value="#{bundle.ListTimeslotTitle_timeslotPK_date}"/>
                             </f:facet>
                             <h:outputText value="#{item.timeslotPK.date}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </h:column>
                         <h:column>
@@ -59,15 +58,11 @@
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{timeslotController.prepareEdit}" value="#{bundle.ListTimeslotEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{timeslotController.destroy}" value="#{bundle.ListTimeslotDestroyLink}"/>
+                            <h:commandLink action="#{timeslotController.adminDestroy}" value="#{bundle.ListTimeslotDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
-                <br />
-                <h:commandLink action="#{timeslotController.prepareCreate}" value="#{bundle.ListTimeslotCreateLink}"/>
-              
+               
             </h:form>
         </ui:define>
     </ui:composition>

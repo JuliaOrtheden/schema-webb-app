@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.ApplicationScoped;
@@ -32,7 +33,7 @@ public class TimeslotHelper {
     public List<WeekSlots> createWeek(){
         Calendar now = Calendar.getInstance();
         int dayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-        int monday = now.get(Calendar.DATE) - dayOfWeek + 2;
+        int monday = now.get(Calendar.DATE) - dayOfWeek + 1;
         int year = now.get(Calendar.YEAR);
         int month = now.get(Calendar.MONTH);
 
@@ -118,6 +119,7 @@ public class TimeslotHelper {
         }
         return list;
     }
+    
     
     public void initHeaders(){
         header = new String[10];
