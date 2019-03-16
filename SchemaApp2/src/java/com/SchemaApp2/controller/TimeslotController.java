@@ -53,7 +53,6 @@ public class TimeslotController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private static final Logger LOG = Logger.getLogger(TimeslotController.class.getName());
-    private String[] header;
 
     /**
      * TimeslotController is responsible for connecting the bookings to the data base. 
@@ -62,9 +61,6 @@ public class TimeslotController implements Serializable {
     public TimeslotController() {
     }
        
-    public void print(){
-        System.out.println("AJAJJAJAJAJAJJAJAJ");
-    }
     
     private List<WeekSlots> slots;
     
@@ -77,41 +73,17 @@ public class TimeslotController implements Serializable {
     @PostConstruct
     public void init() {
         timeslotHelper = new TimeslotHelper();
-        header = new String[10];
         slots = new ArrayList<>();
         slots = timeslotHelper.createWeek();
-
-        this.setHeader(slots.get(0).getMonday().getDate(), 0);
-        this.setHeader(slots.get(0).getTuesday().getDate(), 1);
-        this.setHeader(slots.get(0).getWednesday().getDate(), 2);
-        this.setHeader(slots.get(0).getThursday().getDate(), 3);
-        this.setHeader(slots.get(0).getFriday().getDate(), 4);
-        this.setHeader(slots.get(24).getMonday().getDate(), 5);
-        this.setHeader(slots.get(24).getTuesday().getDate(), 6);
-        this.setHeader(slots.get(24).getWednesday().getDate(), 7);
-        this.setHeader(slots.get(24).getThursday().getDate(), 8);
-        this.setHeader(slots.get(24).getFriday().getDate(), 9);
-        
+        timeslotHelper.initHeaders();
     }
     
     
     
     public String getHeader(int i){
-        return header[i];
-    }
-    
-    public String getHeader2(String header){
-        return header;
-    }
-    
-    public void setNewDates(int i){
-        System.out.println("JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-    }
-    public void setHeader(String header, int i){
-        this.header[i] = header;
+        return timeslotHelper.getHeader(i);
     }
           
-    
     /**
      * Reformats the date to work with the data base
      */
@@ -248,7 +220,7 @@ public class TimeslotController implements Serializable {
     
     public void updateWeek(String room){
         slots = timeslotHelper.reCreateWeek(room);
-         List<Timeslot> bookedList = getBookedTimeslots();
+        List<Timeslot> bookedList = getBookedTimeslots();
         
         for(WeekSlots weekSlot: slots){
             if(!bookedList.isEmpty()){
