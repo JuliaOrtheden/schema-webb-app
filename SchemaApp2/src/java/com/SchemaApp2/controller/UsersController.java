@@ -69,16 +69,17 @@ public class UsersController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
-        current = (Users) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
-
-    public String prepareCreate() {
+  
+    public String prepareRegister() {
         current = new Users();
         selectedItemIndex = -1;
-        return "WelcomePage";
+        return "Welcome";
+    }
+    
+     public String prepareCreate() {
+        current = new Users();
+        selectedItemIndex = -1;
+        return "Create";
     }
     
     public String prepareWelcome(Users user){
@@ -102,6 +103,21 @@ public class UsersController implements Serializable {
             FacesContext context2 = FacesContext.getCurrentInstance();
             HttpSession session = (HttpSession) context2.getExternalContext().getSession(true);
             session.setAttribute("user", user);
+            return prepareRegister();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
+            return null;
+        }
+    }
+    
+     /**
+     * Creates a new user
+     * @return 
+     */
+    public String adminCreateUser() {
+        try {
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
@@ -146,10 +162,16 @@ public class UsersController implements Serializable {
          }
      }
 
-    public String prepareEdit() {
+    public String prepareEditProfile() {
         current = (Users) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "EditProfile";
+    }
+    
+      public String prepareEditUser() {
+        current = (Users) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "EditUser";
     }
 
     public String update() {
@@ -157,6 +179,17 @@ public class UsersController implements Serializable {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
             return "Profile";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
+            return null;
+        }
+    }
+    
+    public String adminUpdate() {
+        try {
+            getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UsersUpdated"));
+            return "EditUser";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("UniqueRequirement"));
             return null;

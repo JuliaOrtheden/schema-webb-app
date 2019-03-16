@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/loggedOutTemplate.xhtml">
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateUsersTitle}"></h:outputText>
         </ui:define>
@@ -24,18 +24,15 @@
                     <h:outputLabel value="#{bundle.CreateUsersLabel_email}" for="email" />
                     <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
                     <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
-                    <h:outputLabel value="#{bundle.CreateUsersLabel_usertype}" for="usertype" />
-                    <h:inputText id="usertype" value="#{usersController.selected.usertype}" title="#{bundle.CreateUsersTitle_usertype}" />
+                    <h:inputSecret id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}"/>
                     <h:outputLabel value="#{bundle.CreateUsersLabel_division}" for="division" />
                     <h:inputText id="division" value="#{usersController.selected.division}" title="#{bundle.CreateUsersTitle_division}" />
+                    <h:inputHidden id="usertype" value="student"/> 
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />
-                <br />
-                <br />
-                <h:commandLink action="#{usersController.prepareList}" value="#{bundle.CreateUsersShowAllLink}" immediate="true"/>
-              
+                <h:commandLink action="#{usersController.create}" value="#{bundle.Save}" styleClass="s" />
+                <h:link outcome="/users/Login" value="#{bundle.Cancel}" styleClass="s" />
+               
             </h:form>
         </ui:define>
     </ui:composition>
